@@ -1,8 +1,5 @@
-lib-french-revolutionary-calendar
-=================================
-
 French Revolutionary Calendar Library
--------------------------------------
+=====================================
 
 Library providing conversion from Gregorian calendar dates
 and French Revolutionary calendar dates.
