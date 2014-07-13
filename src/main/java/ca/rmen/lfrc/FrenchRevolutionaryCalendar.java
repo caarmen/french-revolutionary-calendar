@@ -26,8 +26,10 @@ import java.util.GregorianCalendar;
 
 /**
  * 
- * @author calvarez
+ * Provides conversion between Gregorian calendar dates and French Revolutionary Calendar dates.
+ * Wikipedia article: http://en.wikipedia.org/wiki/French_Republican_Calendar
  * 
+ * @author calvarez
  */
 public class FrenchRevolutionaryCalendar {
 

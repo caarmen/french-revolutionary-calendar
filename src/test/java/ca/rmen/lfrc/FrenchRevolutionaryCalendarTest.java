@@ -27,16 +27,16 @@ import java.util.GregorianCalendar;
 
 import junit.framework.TestCase;
 
-public abstract class FrenchCalendarTest extends TestCase {
+public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
 
-    private FrenchRevolutionaryCalendar util = null;
+    private FrenchRevolutionaryCalendar frcal = null;
     private SimpleDateFormat simpleDateFormat = null;
     private SimpleDateFormat simpleDateTimeFormat = null;
 
-    public FrenchCalendarTest(String name, int mode) throws FileNotFoundException {
+    public FrenchRevolutionaryCalendarTest(String name, int mode) throws FileNotFoundException {
         super(name);
         System.out.println(getClass().getName());
-        util = new FrenchRevolutionaryCalendar(mode);
+        frcal = new FrenchRevolutionaryCalendar(mode);
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
@@ -46,7 +46,6 @@ public abstract class FrenchCalendarTest extends TestCase {
     protected void tearDown() {}
 
     public void testFrenchDate3() throws Exception {
-
         assertTrue(datesAreEqual("1796-08-04", "4-11-17"));
     }
 
@@ -76,8 +75,7 @@ public abstract class FrenchCalendarTest extends TestCase {
         Date testDate = parser.parse(gregorian);
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(testDate);
-        FrenchRevolutionaryCalendarDate fcd = util.getDate(cal);
+        FrenchRevolutionaryCalendarDate fcd = frcal.getDate(cal);
         return fcd;
     }
-
 }

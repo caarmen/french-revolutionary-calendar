@@ -21,27 +21,36 @@ package ca.rmen.lfrc;
 
 import java.io.FileNotFoundException;
 
-public class FrenchCalendarEquinoxTest extends FrenchCalendarTest {
-    public FrenchCalendarEquinoxTest(String name) throws FileNotFoundException {
-        super(name, FrenchRevolutionaryCalendar.MODE_EQUINOX);
+/**
+ * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the Romme method.
+ */
+public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCalendarTest {
+    public FrenchRevolutionaryCalendarRommeTest(String name) throws FileNotFoundException {
+        super(name, FrenchRevolutionaryCalendar.MODE_ROMME);
     }
 
     public void testFrenchDate1() throws Exception {
-
-        assertTrue(datesAreEqual("2011-07-08", "219-10-19"));
+        assertTrue(datesAreEqual("2011-07-08", "219-10-20"));
     }
 
     public void testFrenchDate2() throws Exception {
-
         assertTrue(datesAreEqual("2009-11-17", "218-02-27"));
     }
 
+    public void testFrenchDate4() throws Exception {
+        assertTrue(datesAreEqual("1812-09-23", "21-01-01"));
+    }
+
+    public void testFrenchDate5() throws Exception {
+        assertTrue(datesAreEqual("2011-09-23", "220-01-02"));
+    }
+
     public void testFrenchDate6() throws Exception {
-        assertTrue(datesAreEqual("2010-12-25", "219-04-04"));
+        assertTrue(datesAreEqual("2010-12-25", "219-04-05"));
     }
 
     public void testFrenchDate7() throws Exception {
-        assertTrue(datesAreEqual("1792-09-21", "0-13-05"));
+        assertTrue(datesAreEqual("1792-09-21", "0-13-06"));
     }
 
     public void testFrenchDate8() throws Exception {
@@ -49,7 +58,6 @@ public class FrenchCalendarEquinoxTest extends FrenchCalendarTest {
     }
 
     public void testFrenchDate9() throws Exception {
-        assertTrue(datesAreEqual("1791-09-22", "-1-13-06"));
+        assertTrue(datesAreEqual("1791-09-22", "0-01-01"));
     }
-
 }
