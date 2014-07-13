@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 
 public class FrenchCalendarEquinoxTest extends FrenchCalendarTest {
     public FrenchCalendarEquinoxTest(String name) throws FileNotFoundException {
-        super(name, FrenchCalendarUtil.MODE_EQUINOX);
+        super(name, FrenchRevolutionaryCalendar.MODE_EQUINOX);
     }
 
     public void testFrenchDate1() throws Exception {

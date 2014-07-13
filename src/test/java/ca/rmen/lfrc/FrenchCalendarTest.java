@@ -29,14 +29,14 @@ import junit.framework.TestCase;
 
 public abstract class FrenchCalendarTest extends TestCase {
 
-    private FrenchCalendarUtil util = null;
+    private FrenchRevolutionaryCalendar util = null;
     private SimpleDateFormat simpleDateFormat = null;
     private SimpleDateFormat simpleDateTimeFormat = null;
 
     public FrenchCalendarTest(String name, int mode) throws FileNotFoundException {
         super(name);
         System.out.println(getClass().getName());
-        util = new FrenchCalendarUtil(mode);
+        util = new FrenchRevolutionaryCalendar(mode);
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }

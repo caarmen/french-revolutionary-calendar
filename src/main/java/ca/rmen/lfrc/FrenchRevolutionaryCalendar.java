@@ -29,7 +29,7 @@ import java.util.GregorianCalendar;
  * @author calvarez
  * 
  */
-class FrenchCalendarUtil {
+public class FrenchRevolutionaryCalendar {
 
     static final int MODE_EQUINOX = 0;
     static final int MODE_ROMME = 1;
@@ -44,7 +44,7 @@ class FrenchCalendarUtil {
     private Calendar frenchEraEnd;
     private int mode;
 
-    FrenchCalendarUtil(int mode) {
+    public FrenchRevolutionaryCalendar(int mode) {
         // How will we calculate the Gregorian date of the beginning of each
         // French year?
         setMode(mode);

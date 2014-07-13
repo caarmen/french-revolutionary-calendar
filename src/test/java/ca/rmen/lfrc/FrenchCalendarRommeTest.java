@@ -23,7 +23,7 @@ import java.io.FileNotFoundException;
 
 public class FrenchCalendarRommeTest extends FrenchCalendarTest {
     public FrenchCalendarRommeTest(String name) throws FileNotFoundException {
-        super(name, FrenchCalendarUtil.MODE_ROMME);
+        super(name, FrenchRevolutionaryCalendar.MODE_ROMME);
     }
 
     public void testFrenchDate1() throws Exception {
