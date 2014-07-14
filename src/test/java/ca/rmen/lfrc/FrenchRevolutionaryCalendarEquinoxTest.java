@@ -21,12 +21,14 @@ package ca.rmen.lfrc;
 
 import java.io.FileNotFoundException;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
+
 /**
  * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the Equinox method.
  */
 public class FrenchRevolutionaryCalendarEquinoxTest extends FrenchRevolutionaryCalendarTest {
     public FrenchRevolutionaryCalendarEquinoxTest(String name) throws FileNotFoundException {
-        super(name, FrenchRevolutionaryCalendar.MODE_EQUINOX);
+        super(name, CalculationMethod.EQUINOX);
     }
 
     public void testFrenchDate1() throws Exception {

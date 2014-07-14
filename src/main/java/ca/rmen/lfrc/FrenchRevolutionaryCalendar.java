@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
  * 
  * @author calvarez
  */
-public class FrenchRevolutionaryCalendar {
+public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     public static final String[] WEEKDAYS = new String[] { "Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextidi", "Septidi", "Octidi", "Nonidi",
             "Décadi"
 
@@ -41,8 +41,9 @@ public class FrenchRevolutionaryCalendar {
 
     };
 
-    static final int MODE_EQUINOX = 0;
-    static final int MODE_ROMME = 1;
+    public static enum CalculationMethod {
+        EQUINOX, ROMME
+    };
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String FRENCH_ERA_BEGIN = "1792-09-22 00:00:00";
@@ -52,12 +53,12 @@ public class FrenchRevolutionaryCalendar {
 
     private Calendar frenchEraBegin;
     private Calendar frenchEraEnd;
-    private int mode;
+    private CalculationMethod calculationMethod;
 
-    public FrenchRevolutionaryCalendar(int mode) {
+    public FrenchRevolutionaryCalendar(CalculationMethod calculationMethod) {
         // How will we calculate the Gregorian date of the beginning of each
         // French year?
-        setMode(mode);
+        setCalculationMethod(calculationMethod);
 
         // Read in the dates of the beginning and end of the French calendar,
         // for which equinoxes were used.
@@ -74,13 +75,12 @@ public class FrenchRevolutionaryCalendar {
     }
 
     /**
-     * @param mode
-     *            the mode in which we calculate the first day of the French
-     *            year, in the Gregorian calendar. Supported modes for now are
-     *            MODE_EQUINOX and MODE_ROMME.
+     * @param calculationMethod
+     *            the method to calculate the first day of the French
+     *            year, in the Gregorian calendar.
      */
-    public void setMode(int mode) {
-        this.mode = mode;
+    public void setCalculationMethod(CalculationMethod calculationMethod) {
+        this.calculationMethod = calculationMethod;
     }
 
     /**
@@ -91,16 +91,16 @@ public class FrenchRevolutionaryCalendar {
 
         // Determine the method of calculating the first day of the French year.
 
-        // If we are using the equinox mode, or if we are within the dates the
-        // calendar was used (regardless of the selected mode), use the equinox
-        // mode.
+        // If we are using the equinox calculation method, or if we are within the dates the
+        // calendar was used (regardless of the selected calculation method), use the equinox
+        // calculation method.
         FrenchRevolutionaryCalendarDate result = null;
-        if (mode == MODE_EQUINOX || (gregorianDate.after(frenchEraBegin) && gregorianDate.before(frenchEraEnd))) {
+        if (calculationMethod == CalculationMethod.EQUINOX || (gregorianDate.after(frenchEraBegin) && gregorianDate.before(frenchEraEnd))) {
             result = getDateEquinox(gregorianDate);
-        } else if (mode == MODE_ROMME) {
+        } else if (calculationMethod == CalculationMethod.ROMME) {
             result = getDateRomme(gregorianDate);
         } else {
-            throw new IllegalArgumentException("Can't convert date " + gregorianDate + " in mode " + mode);
+            throw new IllegalArgumentException("Can't convert date " + gregorianDate + " using method " + calculationMethod);
         }
         // Get the decimal time portion of the French date
         if (result != null) {
@@ -113,7 +113,7 @@ public class FrenchRevolutionaryCalendar {
     /**
      * @param gregorianDate
      * @return The French date corresponding to the Gregorian calendar date,
-     *         using the equinox mode to determine the Gregorian date for the
+     *         using the equinox method to determine the Gregorian date for the
      *         first day of the French year.
      */
     private FrenchRevolutionaryCalendarDate getDateEquinox(Calendar gregorianDate) {
@@ -150,7 +150,7 @@ public class FrenchRevolutionaryCalendar {
     /**
      * @param gregorianDate
      * @return The French date corresponding to the Gregorian calendar date,
-     *         using the Romme mode to determine the Gregorian date for the
+     *         using the Romme method to determine the Gregorian date for the
      *         first day of the French year.
      */
     private FrenchRevolutionaryCalendarDate getDateRomme(Calendar gregorianDate) {

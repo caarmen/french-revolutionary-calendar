@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import junit.framework.TestCase;
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
 
 public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
 
@@ -33,10 +34,10 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     private SimpleDateFormat simpleDateFormat = null;
     private SimpleDateFormat simpleDateTimeFormat = null;
 
-    public FrenchRevolutionaryCalendarTest(String name, int mode) throws FileNotFoundException {
+    public FrenchRevolutionaryCalendarTest(String name, CalculationMethod calculationMethod) throws FileNotFoundException {
         super(name);
         System.out.println(getClass().getName());
-        frcal = new FrenchRevolutionaryCalendar(mode);
+        frcal = new FrenchRevolutionaryCalendar(calculationMethod);
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }

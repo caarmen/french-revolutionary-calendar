@@ -21,12 +21,14 @@ package ca.rmen.lfrc;
 
 import java.io.FileNotFoundException;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
+
 /**
  * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the Romme method.
  */
 public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCalendarTest {
     public FrenchRevolutionaryCalendarRommeTest(String name) throws FileNotFoundException {
-        super(name, FrenchRevolutionaryCalendar.MODE_ROMME);
+        super(name, CalculationMethod.ROMME);
     }
 
     public void testFrenchDate1() throws Exception {

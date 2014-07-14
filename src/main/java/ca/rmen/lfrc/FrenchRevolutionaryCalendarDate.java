@@ -27,7 +27,7 @@ package ca.rmen.lfrc;
  * @author calvarez
  * 
  */
-public class FrenchRevolutionaryCalendarDate {
+public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
     public final int year;
     public final int month;
     public final int dayOfMonth;
@@ -56,14 +56,14 @@ public class FrenchRevolutionaryCalendarDate {
      * @return a number from 1 to 10.
      */
     public int getDayInWeek() {
-        return (this.dayOfMonth - 1) % 10 + 1;
+        return (dayOfMonth - 1) % 10 + 1;
     }
 
     /**
      * @return a number from 1 to 3.
      */
     public int getWeekInMonth() {
-        return this.dayOfMonth % 10;
+        return dayOfMonth % 10;
     }
 
     public String getMonthName() {
