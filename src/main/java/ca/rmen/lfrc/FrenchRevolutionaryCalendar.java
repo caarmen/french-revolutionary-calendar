@@ -32,6 +32,14 @@ import java.util.GregorianCalendar;
  * @author calvarez
  */
 public class FrenchRevolutionaryCalendar {
+    public static final String[] WEEKDAYS = new String[] { "Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextidi", "Septidi", "Octidi", "Nonidi",
+            "Décadi"
+
+    };
+    public static final String[] MONTHS = new String[] { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal",
+            "Prairial", "Messidor", "Thermidor", "Fructidor", "Sanculotides"
+
+    };
 
     static final int MODE_EQUINOX = 0;
     static final int MODE_ROMME = 1;
@@ -97,7 +105,7 @@ public class FrenchRevolutionaryCalendar {
         // Get the decimal time portion of the French date
         if (result != null) {
             int[] timeInDay = getFrenchTime(gregorianDate);
-            result = new FrenchRevolutionaryCalendarDate(result.year, result.month, result.day, timeInDay[0], timeInDay[1], timeInDay[2]);
+            result = new FrenchRevolutionaryCalendarDate(result.year, result.month, result.dayOfMonth, timeInDay[0], timeInDay[1], timeInDay[2]);
         }
         return result;
     }

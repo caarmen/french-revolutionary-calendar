@@ -46,29 +46,27 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     protected void tearDown() {}
 
     public void testFrenchDate3() throws Exception {
-        assertTrue(datesAreEqual("1796-08-04", "4-11-17"));
+        validateDates("1796-08-04", "4-11-17", "Septidi", "Thermidor");
     }
 
     public void testFrenchTime1() throws Exception {
-        assertTrue(dateAndTimeAreEqual("1796-08-04 11:30:30", "4-11-17 04:79:51"));
+        validateDateAndTime("1796-08-04 11:30:30", "4-11-17 04:79:51", "Septidi", "Thermidor");
     }
 
-    protected boolean datesAreEqual(String gregorian, String french) throws ParseException {
+    protected void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName) throws ParseException {
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(gregorian, simpleDateFormat);
-        String frenchCalculated = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.day);
-        return areEqual(frenchCalculated, french);
+        String actualFrench = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.dayOfMonth);
+        assertEquals(expectedFrench, actualFrench);
+        assertEquals(expectedDayOfWeek, fcd.getWeekdayName());
+        assertEquals(expectedMonthName, fcd.getMonthName());
     }
 
-    protected boolean dateAndTimeAreEqual(String gregorian, String french) throws ParseException {
+    protected void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName) throws ParseException {
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(gregorian, simpleDateTimeFormat);
-        String frenchCalculated = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.day, fcd.hour, fcd.minute, fcd.second);
-        return areEqual(frenchCalculated, french);
-    }
-
-    private boolean areEqual(String frenchCalculated, String french) {
-        boolean result = frenchCalculated.equals(french);
-        System.out.println((result ? "OK" : "KO!!") + ": " + frenchCalculated + " vs " + french);
-        return result;
+        String actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
+        assertEquals(expectedFrench, actualFrench);
+        assertEquals(expectedDayOfWeek, fcd.getWeekdayName());
+        assertEquals(expectedMonthName, fcd.getMonthName());
     }
 
     private FrenchRevolutionaryCalendarDate getFrenchDate(String gregorian, SimpleDateFormat parser) throws ParseException {

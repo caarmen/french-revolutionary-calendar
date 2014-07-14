@@ -30,34 +30,34 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
     }
 
     public void testFrenchDate1() throws Exception {
-        assertTrue(datesAreEqual("2011-07-08", "219-10-20"));
+        validateDates("2011-07-08", "219-10-20", "Décadi", "Messidor");
     }
 
     public void testFrenchDate2() throws Exception {
-        assertTrue(datesAreEqual("2009-11-17", "218-02-27"));
+        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire");
     }
 
     public void testFrenchDate4() throws Exception {
-        assertTrue(datesAreEqual("1812-09-23", "21-01-01"));
+        validateDates("1812-09-23", "21-01-01", "Primidi", "Vendémiaire");
     }
 
     public void testFrenchDate5() throws Exception {
-        assertTrue(datesAreEqual("2011-09-23", "220-01-02"));
+        validateDates("2011-09-23", "220-01-02", "Duodi", "Vendémiaire");
     }
 
     public void testFrenchDate6() throws Exception {
-        assertTrue(datesAreEqual("2010-12-25", "219-04-05"));
+        validateDates("2010-12-25", "219-04-05", "Quintidi", "Nivôse");
     }
 
     public void testFrenchDate7() throws Exception {
-        assertTrue(datesAreEqual("1792-09-21", "0-13-06"));
+        validateDates("1792-09-21", "0-13-06", "Sextidi", "Sanculotides");
     }
 
     public void testFrenchDate8() throws Exception {
-        assertTrue(datesAreEqual("1791-09-21", "-1-13-05"));
+        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides");
     }
 
     public void testFrenchDate9() throws Exception {
-        assertTrue(datesAreEqual("1791-09-22", "0-01-01"));
+        validateDates("1791-09-22", "0-01-01", "Primidi", "Vendémiaire");
     }
 }

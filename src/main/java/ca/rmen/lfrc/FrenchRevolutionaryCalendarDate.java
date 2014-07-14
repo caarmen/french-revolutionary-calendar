@@ -30,15 +30,23 @@ package ca.rmen.lfrc;
 public class FrenchRevolutionaryCalendarDate {
     public final int year;
     public final int month;
-    public final int day;
+    public final int dayOfMonth;
     public final int hour;
     public final int minute;
     public final int second;
 
-    public FrenchRevolutionaryCalendarDate(int year, int month, int day, int hour, int minute, int second) {
+    /**
+     * @param year The year in the French Revolutionary Calendar.
+     * @param month The month in the year, from 1 to 11
+     * @param dayOfMonth The day in the month, from 1 to 30.
+     * @param hour The hour of the day, from 0 to 9.
+     * @param minute The minute of the hour, from 0 to 100.
+     * @param second The second of the minute, from 0 to 100.
+     */
+    public FrenchRevolutionaryCalendarDate(int year, int month, int dayOfMonth, int hour, int minute, int second) {
         this.year = year;
         this.month = month;
-        this.day = day;
+        this.dayOfMonth = dayOfMonth;
         this.hour = hour;
         this.minute = minute;
         this.second = second;
@@ -48,17 +56,28 @@ public class FrenchRevolutionaryCalendarDate {
      * @return a number from 1 to 10.
      */
     public int getDayInWeek() {
-        return (this.day - 1) % 10 + 1;
+        return (this.dayOfMonth - 1) % 10 + 1;
     }
 
     /**
      * @return a number from 1 to 3.
      */
     public int getWeekInMonth() {
-        return this.day % 10;
+        return this.dayOfMonth % 10;
+    }
+
+    public String getMonthName() {
+        return FrenchRevolutionaryCalendar.MONTHS[month - 1];
+
+    }
+
+    public String getWeekdayName() {
+        // The day of the week starting from 0:
+        int dayInWeek = (dayOfMonth - 1) % 10;
+        return FrenchRevolutionaryCalendar.WEEKDAYS[dayInWeek];
     }
 
     public String toString() {
-        return year + "-" + (month) + "-" + (day) + " " + hour + ":" + minute + ":" + second;
+        return year + "-" + (month) + "-" + (dayOfMonth) + " " + hour + ":" + minute + ":" + second;
     }
 }
