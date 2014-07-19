@@ -36,7 +36,7 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
 
     public FrenchRevolutionaryCalendarTest(String name, CalculationMethod calculationMethod) throws FileNotFoundException {
         super(name);
-        System.out.println(getClass().getName());
+        System.out.println(name);
         frcal = new FrenchRevolutionaryCalendar(calculationMethod);
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
