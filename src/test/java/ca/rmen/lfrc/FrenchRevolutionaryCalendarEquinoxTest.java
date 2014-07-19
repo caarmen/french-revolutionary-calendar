@@ -32,26 +32,26 @@ public class FrenchRevolutionaryCalendarEquinoxTest extends FrenchRevolutionaryC
     }
 
     public void testFrenchDate1() throws Exception {
-        validateDates("2011-07-08", "219-10-19", "Nonidi", "Messidor");
+        validateDates("2011-07-08", "219-10-19", "Nonidi", "Messidor", "Cerise");
     }
 
     public void testFrenchDate2() throws Exception {
-        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire");
+        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire", "Macjonc");
     }
 
     public void testFrenchDate6() throws Exception {
-        validateDates("2010-12-25", "219-04-04", "Quartidi", "Nivôse");
+        validateDates("2010-12-25", "219-04-04", "Quartidi", "Nivôse", "Soufre");
     }
 
     public void testFrenchDate7() throws Exception {
-        validateDates("1792-09-21", "0-13-05", "Quintidi", "Sanculotides");
+        validateDates("1792-09-21", "0-13-05", "Quintidi", "Sanculotides", "Récompenses");
     }
 
     public void testFrenchDate8() throws Exception {
-        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides");
+        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses");
     }
 
     public void testFrenchDate9() throws Exception {
-        validateDates("1791-09-22", "-1-13-06", "Sextidi", "Sanculotides");
+        validateDates("1791-09-22", "-1-13-06", "Sextidi", "Sanculotides", "Révolution");
     }
 }

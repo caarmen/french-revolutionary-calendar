@@ -24,12 +24,12 @@ import java.io.FileNotFoundException;
 import junit.framework.TestCase;
 
 /**
- * These tests make sure that the weekday names and month names are encoded in UTF-8
+ * These tests make sure that we have the correct names for the days in the year.
  * 
  */
-public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
+public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
-    public FrenchRevolutionaryCalendarEncodingTest(String name) throws FileNotFoundException {
+    public FrenchRevolutionaryCalendarDaysOfYearTest(String name) throws FileNotFoundException {
         super(name);
         System.out.println(name);
     }
@@ -38,16 +38,12 @@ public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
 
     protected void tearDown() {}
 
-    public void testEncodingWeekday() throws Exception {
-        assertEquals("D\u00e9cadi", FrenchRevolutionaryCalendar.WEEKDAYS[9]);
-    }
-
-    public void testEncodingMonth() throws Exception {
-        assertEquals("Niv\u00f4se", FrenchRevolutionaryCalendar.MONTHS[3]);
-    }
-
-    public void testEncodingDayOfYear() throws Exception {
-        assertEquals("M\u00e9l\u00e8ze", FrenchRevolutionaryCalendar.DAY_OF_YEAR[6][16]);
+    public void testNumberOfDaysOfYear() throws Exception {
+        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR.length, 13);
+        for (int i = 0; i < 12; i++) {
+            assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[i].length, 30);
+        }
+        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[12].length, 6);
     }
 
 }

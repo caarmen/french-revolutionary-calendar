@@ -77,6 +77,10 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
         return FrenchRevolutionaryCalendar.WEEKDAYS[dayInWeek];
     }
 
+    public String getDayOfYear() {
+        return FrenchRevolutionaryCalendar.DAY_OF_YEAR[month - 1][dayOfMonth - 1];
+    }
+
     public String toString() {
         return year + "-" + (month) + "-" + (dayOfMonth) + " " + hour + ":" + minute + ":" + second;
     }
