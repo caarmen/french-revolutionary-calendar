@@ -83,6 +83,7 @@ public abstract class FrenchRevolutionaryCalendarLabels {
         if (result != null) return result;
         if (Locale.ENGLISH.getLanguage().equals(language)) result = new FrenchRevolutionaryCalendarLabelsEN();
         else if ("es".equals(language)) result = new FrenchRevolutionaryCalendarLabelsES();
+        else if ("ca".equals(language)) result = new FrenchRevolutionaryCalendarLabelsCA();
         else
             result = new FrenchRevolutionaryCalendarLabelsFR();
         instances.put(language, result);

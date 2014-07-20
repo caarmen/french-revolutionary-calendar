@@ -63,6 +63,14 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
         assertEquals(FrenchRevolutionaryCalendarLabelsES.DAY_OF_YEAR[12].length, 6);
     }
 
+    public void testNumberOfDaysOfYearCA() {
+        assertEquals(FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR.length, 13);
+        for (int i = 0; i < 12; i++) {
+            assertEquals(FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR[i].length, 30);
+        }
+        assertEquals(FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR[12].length, 6);
+    }
+
     public void testDayOfYear1() {
         testDayOfYear(Locale.ENGLISH, 69, "Juniper");
     }
@@ -109,6 +117,22 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
     public void testDayOfYear12() {
         testDayOfYear(new Locale("es", "ES"), 358, "Maíz");
+    }
+
+    public void testDayOfYear13() {
+        testDayOfYear(new Locale("ca", "ES"), 2, "Safrà");
+    }
+
+    public void testDayOfYear14() {
+        testDayOfYear(new Locale("ca", "ES"), 34, "Remolatxa");
+    }
+
+    public void testDayOfYear15() {
+        testDayOfYear(new Locale("ca", "ES"), 5, "Cavall");
+    }
+
+    public void testDayOfYear16() {
+        testDayOfYear(new Locale("ca", "ES"), 9, "Xirivia");
     }
 
     private void testDayOfYear(Locale locale, int dayOfYear, String expectedName) {

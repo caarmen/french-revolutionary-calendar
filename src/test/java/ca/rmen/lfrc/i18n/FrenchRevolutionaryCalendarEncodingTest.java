@@ -38,16 +38,24 @@ public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
 
     protected void tearDown() {}
 
-    public void testEncodingWeekday() throws Exception {
+    public void testEncodingWeekday() {
         assertEquals("D\u00e9cadi", FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS[9]);
     }
 
-    public void testEncodingMonth() throws Exception {
+    public void testEncodingMonth() {
         assertEquals("Niv\u00f4se", FrenchRevolutionaryCalendarLabelsFR.MONTHS[3]);
     }
 
-    public void testEncodingDayOfYear() throws Exception {
+    public void testEncodingDayOfYear() {
         assertEquals("M\u00e9l\u00e8ze", FrenchRevolutionaryCalendarLabelsFR.DAY_OF_YEAR[6][16]);
+    }
+
+    public void testEncodingES() {
+        assertEquals("Azafr\u00e1n", FrenchRevolutionaryCalendarLabelsES.DAY_OF_YEAR[0][1]);
+    }
+
+    public void testEncodingCA() {
+        assertEquals("Niv\u00f3s", FrenchRevolutionaryCalendarLabelsCA.MONTHS[3]);
     }
 
 }
