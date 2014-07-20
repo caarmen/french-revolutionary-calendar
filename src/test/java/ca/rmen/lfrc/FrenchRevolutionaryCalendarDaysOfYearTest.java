@@ -38,12 +38,20 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
     protected void tearDown() {}
 
-    public void testNumberOfDaysOfYear() throws Exception {
+    public void testNumberOfDaysOfYearFR() throws Exception {
         assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR.length, 13);
         for (int i = 0; i < 12; i++) {
             assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[i].length, 30);
         }
         assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[12].length, 6);
+    }
+
+    public void testNumberOfDaysOfYearEN() throws Exception {
+        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN.length, 13);
+        for (int i = 0; i < 12; i++) {
+            assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN[i].length, 30);
+        }
+        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN[12].length, 6);
     }
 
 }

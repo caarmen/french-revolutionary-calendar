@@ -19,6 +19,8 @@
  */
 package ca.rmen.lfrc;
 
+import java.util.Locale;
+
 /**
  * A timestamp in the french revolutionary calendar. Months are from 1 to 13,
  * days are from 1 to 30, hours are from 1 to 10, minutes and seconds are from 1
@@ -77,8 +79,22 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
         return FrenchRevolutionaryCalendar.WEEKDAYS[dayInWeek];
     }
 
+    /**
+     * @return the name of this day in the year, in French
+     */
     public String getDayOfYear() {
         return FrenchRevolutionaryCalendar.DAY_OF_YEAR[month - 1][dayOfMonth - 1];
+    }
+
+    /**
+     * @param locale must have a language.
+     * @return the name of this day in the year, in the language of the given locale, if available. If the language is not available, the day of the year will
+     *         be returned in French.
+     */
+    public String getDayOfYear(Locale locale) {
+        if (Locale.ENGLISH.getLanguage().equals(locale.getLanguage())) return FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN[month - 1][dayOfMonth - 1];
+        else
+            return FrenchRevolutionaryCalendar.DAY_OF_YEAR[month - 1][dayOfMonth - 1];
     }
 
     public String toString() {

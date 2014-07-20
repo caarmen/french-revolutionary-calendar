@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import junit.framework.TestCase;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
@@ -47,31 +48,35 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     protected void tearDown() {}
 
     public void testFrenchDate3() throws Exception {
-        validateDates("1796-08-04", "4-11-17", "Septidi", "Thermidor", "Lin");
+        validateDates("1796-08-04", "4-11-17", "Septidi", "Thermidor", "Lin", "Flax");
     }
 
     public void testFrenchTime1() throws Exception {
-        validateDateAndTime("1796-08-04 11:30:30", "4-11-17 04:79:51", "Septidi", "Thermidor", "Lin");
+        validateDateAndTime("1796-08-04 11:30:30", "4-11-17 04:79:51", "Septidi", "Thermidor", "Lin", "Flax");
     }
 
-    protected void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear)
-            throws ParseException {
+    protected void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
+            String expectedDayOfYearEN) throws ParseException {
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(gregorian, simpleDateFormat);
         String actualFrench = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.dayOfMonth);
         assertEquals(expectedFrench, actualFrench);
-        assertEquals(expectedDayOfWeek, fcd.getWeekdayName());
-        assertEquals(expectedMonthName, fcd.getMonthName());
-        assertEquals(expectedDayOfYear, fcd.getDayOfYear());
+        validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearFR, expectedDayOfYearEN);
     }
 
-    protected void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear)
-            throws ParseException {
+    protected void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
+            String expectedDayOfYearEN) throws ParseException {
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(gregorian, simpleDateTimeFormat);
         String actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
         assertEquals(expectedFrench, actualFrench);
-        assertEquals(expectedDayOfWeek, fcd.getWeekdayName());
-        assertEquals(expectedMonthName, fcd.getMonthName());
-        assertEquals(expectedDayOfYear, fcd.getDayOfYear());
+        validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearFR, expectedDayOfYearEN);
+    }
+
+    private void validateDateAttributes(FrenchRevolutionaryCalendarDate actual, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
+            String expectedDayOfYearEN) {
+        assertEquals(expectedDayOfWeek, actual.getWeekdayName());
+        assertEquals(expectedMonthName, actual.getMonthName());
+        assertEquals(expectedDayOfYearFR, actual.getDayOfYear());
+        assertEquals(expectedDayOfYearEN, actual.getDayOfYear(Locale.ENGLISH));
     }
 
     private FrenchRevolutionaryCalendarDate getFrenchDate(String gregorian, SimpleDateFormat parser) throws ParseException {
