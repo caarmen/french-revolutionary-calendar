@@ -21,7 +21,7 @@ package ca.rmen.lfrc.i18n;
 
 /**
  * 
- * Provides trnaslations of weekday names, month names, and day of year names.
+ * Provides translations of weekday names, month names, and day of year names, in Spanish.
  * 
  * All translations come from Wikipedia.
  * Wikipedia article: http://es.wikipedia.org/wiki/Calendario_republicano_franc%C3%A9s
