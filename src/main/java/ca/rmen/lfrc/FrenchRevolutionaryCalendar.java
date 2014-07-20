@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * 
@@ -32,122 +33,8 @@ import java.util.GregorianCalendar;
  * @author calvarez
  */
 public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
-    public static final String[] WEEKDAYS = new String[] { "Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextidi", "Septidi", "Octidi", "Nonidi",
-            "Décadi"
 
-    };
-    public static final String[] MONTHS = new String[] { "Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal",
-            "Prairial", "Messidor", "Thermidor", "Fructidor", "Sanculotides"
-
-    };
-
-    public static final String[][] DAY_OF_YEAR = new String[][] {
-            // Vendemiaire 
-            new String[] { "Raisin", "Safran", "Châtaigne", "Colchique", "Cheval", "Balsamine", "Carotte", "Amaranthe", "Panais", "Cuve", "Pomme de terre",
-                    "Immortelle", "Potiron", "Réséda", "Âne", "Belle de nuit", "Citrouille", "Sarrasin", "Tournesol", "Pressoir", "Chanvre", "Pêche", "Navet",
-                    "Amaryllis", "Bœuf", "Aubergine", "Piment", "Tomate", "Orge", "Tonneau" },
-            // Brumaire
-            new String[] { "Pomme", "Céleri", "Poire", "Betterave", "Oie", "Héliotrope", "Figue", "Scorsonère", "Alisier", "Charrue", "Salsifis", "Mâcre",
-                    "Topinambour", "Endive", "Dindon", "Chervis", "Cresson", "Dentelaire", "Grenade", "Herse", "Bacchante", "Azerole", "Garance", "Orange",
-                    "Faisan", "Pistache", "Macjonc", "Coing", "Cormier", "Rouleau" },
-            // Frimaire
-            new String[] { "Raiponce", "Turneps", "Chicorée", "Nèfle", "Cochon", "Mâche", "Chou-fleur", "Miel", "Genièvre", "Pioche", "Cire", "Raifort",
-                    "Cèdre", "Sapin", "Chevreuil", "Ajonc", "Cyprès", "Lierre", "Sabine", "Hoyau", "Érable à sucre", "Bruyère", "Roseau", "Oseille", "Grillon",
-                    "Pignon", "Liège", "Truffe", "Olive", "Pelle" },
-            // Nivôse
-            new String[] { "Tourbe", "Houille", "Bitume", "Soufre", "Chien", "Lave", "Terre végétale", "Fumier", "Salpêtre", "Fléau", "Granit", "Argile",
-                    "Ardoise", "Grès", "Lapin", "Silex", "Marne", "Pierre à chaux", "Marbre", "Van", "Pierre à plâtre", "Sel", "Fer", "Cuivre", "Chat",
-                    "Étain", "Plomb", "Zinc", "Mercure", "Crible" },
-            //Pluviôse
-            new String[] { "Lauréole", "Mousse", "Fragon", "Perce-neige", "Taureau", "Laurier-thym", "Amadouvier", "Mézéréon", "Peuplier", "Coignée",
-                    "Ellébore", "Brocoli", "Laurier", "Avelinier", "Vache", "Buis", "Lichen", "If", "Pulmonaire", "Serpette", "Thlaspi", "Thimelé",
-                    "Chiendent", "Trainasse", "Lièvre", "Guède", "Noisetier", "Cyclamen", "Chélidoine", "Traîneau" },
-            // Ventôse
-            new String[] { "Tussilage", "Cornouiller", "Violier", "Troène", "Bouc", "Asaret", "Alaterne", "Violette", "Marceau", "Bêche", "Narcisse", "Orme",
-                    "Fumeterre", "Vélar", "Chèvre", "Épinard", "Doronic", "Mouron", "Cerfeuil", "Cordeau", "Mandragore", "Persil", "Cochléaria", "Pâquerette",
-                    "Thon", "Pissenlit", "Sylvie", "Capillaire", "Frêne", "Plantoir" },
-            // Germinal
-            new String[] { "Primevère", "Platane", "Asperge", "Tulipe", "Poule", "Bette", "Bouleau", "Jonquille", "Aulne", "Couvoir", "Pervenche", "Charme",
-                    "Morille", "Hêtre", "Abeille", "Laitue", "Mélèze", "Ciguë", "Radis", "Ruche", "Gainier", "Romaine", "Marronnier", "Roquette", "Pigeon",
-                    "Lilas", "Anémone", "Pensée", "Myrtille", "Greffoir" },
-            // Floréal
-            new String[] { "Rose", "Chêne", "Fougère", "Aubépine", "Rossignol", "Ancolie", "Muguet", "Champignon", "Hyacinthe", "Râteau", "Rhubarbe",
-                    "Sainfoin", "Bâton d'or", "Chamerisier", "Ver à soie", "Consoude", "Pimprenelle", "Corbeille d'or", "Arroche", "Sarcloir", "Statice",
-                    "Fritillaire", "Bourrache", "Valériane", "Carpe", "Fusain", "Civette", "Buglosse", "Sénevé", "Houlette" },
-            // Plairial
-            new String[] { "Luzerne", "Hémérocalle", "Trèfle", "Angélique", "Canard", "Mélisse", "Fromental", "Martagon", "Serpolet", "Faux", "Fraise",
-                    "Bétoine", "Pois", "Acacia", "Caille", "Œillet", "Sureau", "Pavot", "Tilleul", "Fourche", "Barbeau", "Camomille", "Chèvrefeuille",
-                    "Caille-lait", "Tanche", "Jasmin", "Verveine", "Thym", "Pivoine", "Chariot" },
-            // Messidor
-            new String[] { "Seigle", "Avoine", "Oignon", "Véronique", "Mulet", "Romarin", "Concombre", "Échalote", "Absinthe", "Faucille", "Coriandre",
-                    "Artichaut", "Girofle", "Lavande", "Chamois", "Tabac", "Groseille", "Gesse", "Cerise", "Parc", "Menthe", "Cumin", "Haricot", "Orcanète",
-                    "Pintade", "Sauge", "Ail", "Vesce", "Blé", "Chalémie" },
-            // Thermidor
-            new String[] { "Épeautre", "Bouillon blanc", "Melon", "Ivraie", "Bélier", "Prêle", "Armoise", "Carthame", "Mûre", "Arrosoir", "Panic", "Salicorne",
-                    "Abricot", "Basilic", "Brebis", "Guimauve", "Lin", "Amande", "Gentiane", "Écluse", "Carline", "Câprier", "Lentille", "Aunée", "Loutre",
-                    "Myrte", "Colza", "Lupin", "Coton", "Moulin" },
-            // Fructidor
-            new String[] { "Prune", "Millet", "Lycoperdon", "Escourgeon", "Saumon", "Tubéreuse", "Sucrion", "Apocyn", "Réglisse", "Échelle", "Pastèque",
-                    "Fenouil", "Épine vinette", "Noix", "Truite", "Citron", "Cardère", "Nerprun", "Tagette", "Hotte", "Églantier", "Noisette", "Houblon",
-                    "Sorgho", "Écrevisse", "Bigarade", "Verge d'or", "Maïs", "Marron", "Panier" },
-            // Sanculotides
-            new String[] { "Vertu", "Génie", "Tavail", "Opinion", "Récompenses", "Révolution" }, };
-
-    public static final String[][] DAY_OF_YEAR_EN = new String[][] {
-            // Vendemiaire
-            new String[] { "Grape", "Saffron", "Chestnut", "Crocus", "Horse", "Impatiens", "Carrot", "Amaranth", "Parsnip", "Vat", "Potato", "Strawflower",
-                    "Butter Squash", "Mignonette", "Donkey", "The four o'clock flower", "Pumpkin", "Buckwheat", "Sunflower", "Wine-Press", "Hemp", "Peach",
-                    "Turnip", "Amaryllis", "Ox", "Eggplant", "Chili Pepper", "Tomato", "Barley", "Barrel", },
-            // Brumaire
-            new String[] { "Apple", "Celery", "Pear", "Beet root", "Goose", "Heliotrope", "Common Fig", "Black Salsify", "Chequer Tree", "Plough", "Salsify",
-                    "Water chestnut", "Jerusalem Artichoke", "Endive", "Turkey", "Skirret", "Watercress", "Leadworts", "Pomegranate", "Harrow",
-                    "Asarum baccharis", "Azarole", "Madder", "Orange", "Pheasant", "Pistachio", "Tuberous pea", "Quince", "Service tree", "Roller", },
-            // Frimaire
-            new String[] { "Rampion", "Turnip", "Chicory", "Medlar", "Pig", "Corn Salad", "Cauliflower", "Honey", "Juniper", "Pickaxe", "Wax", "Horseradish",
-                    "Cedar tree", "Fir tree", "Roe Deer", "Gorse", "Cypress Tree", "Ivy", "Savin Juniper", "Grub-hoe", "Sugar Maple", "Heather", "Reed plant",
-                    "Sorrel", "Cricket", "Pinenut", "Cork", "Truffle", "Olive", "Shovel", },
-            // Nivôse
-            new String[] { "Peat", "Coal", "Bitumen", "Sulphur", "Dog", "Lava", "Topsoil", "Manure", "Saltpeter", "Flail", "Granite stone", "Clay", "Slate",
-                    "Sandstone", "Rabbit", "Flint", "Marl", "Limestone", "Marble", "Winnowing basket", "Gypsum", "Salt", "Iron", "Copper", "Cat", "Tin",
-                    "Lead", "Zinc", "Mercury", "Sieve", },
-            // Pluviôse
-            new String[] { "Spurge-laurel", "Moss", "Butcher's Broom", "Snowdrop", "Bull", "Laurustinus", "Tinder polypore", "Daphne mezereum", "Poplar Tree",
-                    "Axe", "Hellebore", "Broccoli", "Laurel", "Filbert", "Cow", "Box Tree", "Lichen", "Yew tree", "Lungwort", "Billhook", "Pennycress",
-                    "Rose Daphne", "Couch Grass", "Common Knotgrass", "Hare", "Woad", "Hazel", "Cyclamen", "Celandine", "Sleigh", },
-            // Ventôse
-            new String[] { "Coltsfoot", "Dogwood", "Matthiola", "Privet", "Billygoat", "Wild Ginger", "Italian Buckthorn", "Violet", "Goat Willow", "Spade",
-                    "Narcissus", "Elm Tree", "Common fumitory", "Hedge Mustard", "Goat", "Spinach", "Large-flowered Leopard's Bane", "Pimpernel", "Chervil",
-                    "Twine", "Mandrake", "Parsley", "Scurvy-grass", "Daisy", "Tuna", "Dandelion", "Wood Anemone", "Maidenhair fern", "Ash Tree", "Dibber", },
-            // Germinal
-            new String[] { "Primrose", "Plane Tree", "Asparagus", "Tulip", "Hen", "Chard Plant", "Birch Tree", "Daffodil", "Alder", "Hatchery", "Periwinkle",
-                    "Hornbeam", "Morel", "European Beech Tree", "Bee", "Lettuce", "Larch", "Hemlock", "Radish", "Hive", "Judas tree", "Lettuce",
-                    "Horse chestnut", "Arugula or Rocket", "Pigeon", "Lilac", "Anemone", "Pansy", "Blueberry", "Knife", },
-            // Floréal
-            new String[] { "Rose", "Oak Tree", "Fern", "Hawthorn", "Nightingale", "Common Columbine", "Lily of the Valley", "Button mushroom", "Hyacinth",
-                    "Rake", "Rhubarb", "Sainfoin", "Wallflower", "Fan Palm tree", "Silkworm", "Comfrey", "Salad Burnet", "Basket of Gold", "Orache",
-                    "Garden hoe", "Thrift", "Fritillary", "Borage", "Valerian", "Carp", "Spindle", "Chive", "Bugloss", "Wild mustard", "Shepherd's crook", },
-            // Plairial
-            new String[] { "Alfalfa", "Daylily", "Clover", "Angelica", "Duck", "Lemon Balm", "Oat grass", "Martagon lily", "Wild Thyme ", "Scythe",
-                    "Strawberry", "Woundwort", "Pea", "Acacia", "Quail", "Carnation", "Elderberry", "Poppy plant", "Linden or Lime tree", "Pitchfork",
-                    "Cornflower", "Camomile", "Honeysuckle", "Bedstraw", "Tench", "Jasmine Plant", "Verbena", "Thyme Plant", "Peony Plant", "Hand Cart", },
-            // Messidor
-            new String[] { "Rye", "Oats", "Onion", "Speedwell", "Mule", "Rosemary", "Cucumber", "Shallot", "Wormwood", "Sickle", "Coriander", "Artichoke",
-                    "Clove", "Lavender", "Chamois", "Tobacco", "Currant", "Hairy Vetchling", "Cherry", "Park", "Mint", "Cumin", "Bean", "Alkanet",
-                    "Guinea fowl", "Sage Plant", "Garlic", "Tare", "Wheat", "Shawm", },
-            // Thermidor
-            new String[] { "Spelt", "Common Mullein", "Melon", "Ryegrass", "Ram", "Horsetail", "Mugwort", "Safflower", "Blackberry", "Watering Can",
-                    "Switchgrass", "Common Glasswort", "Apricot", "Basil", "Ewe", "Marshmallow", "Flax", "Almond", "Gentian", "Lock", "Carline thistle",
-                    "Caper", "Lentil", "Inula", "Otter", "Myrtle", "Rapeseed", "Lupin", "Cotton", "Mill", },
-            // Fructidor
-            new String[] { "Plum", "Millet", "Puffball", "Six-row Barley", "Salmon", "Tuberose", "Winter Barley", "Apocynum", "Liquorice", "Ladder",
-                    "Watermelon", "Fennel", "Barberry", "Walnut", "Trout", "Lemon", "Teasel", "Buckthorn", "Mexican Marigold", "Harvesting basket",
-                    "Wild Rose", "Hazelnut", "Hops", "Sorghum", "Crayfish", "Bitter Orange", "Goldenrod", "Maize or Corn", "Sweet Chestnut", "Pack Basket", },
-            // Sanculotides
-            new String[] { "Virtue", "Talent", "Labor", "Convictions", "Honors", "Revolution", },
-
-    };
-
-    public static enum CalculationMethod {
+    public static enum CalculationMethod { // NO_UCD (use default)
         EQUINOX, ROMME
     };
 
@@ -157,11 +44,13 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     private static final long NUM_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
     private static final int EQUINOX_MONTH = 8; // September
 
+    private final Locale locale;
     private Calendar frenchEraBegin;
     private Calendar frenchEraEnd;
     private CalculationMethod calculationMethod;
 
-    public FrenchRevolutionaryCalendar(CalculationMethod calculationMethod) {
+    public FrenchRevolutionaryCalendar(Locale locale, CalculationMethod calculationMethod) {
+        this.locale = locale;
         // How will we calculate the Gregorian date of the beginning of each
         // French year?
         setCalculationMethod(calculationMethod);
@@ -211,7 +100,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // Get the decimal time portion of the French date
         if (result != null) {
             int[] timeInDay = getFrenchTime(gregorianDate);
-            result = new FrenchRevolutionaryCalendarDate(result.year, result.month, result.dayOfMonth, timeInDay[0], timeInDay[1], timeInDay[2]);
+            result = new FrenchRevolutionaryCalendarDate(locale, result.year, result.month, result.dayOfMonth, timeInDay[0], timeInDay[1], timeInDay[2]);
         }
         return result;
     }
@@ -318,8 +207,8 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         int numberDaysInFrenchMonth = numberDaysInFrenchYear - (numberMonthInFrenchYear * 30);
 
         // Create and return the French calendar object.
-        FrenchRevolutionaryCalendarDate result = new FrenchRevolutionaryCalendarDate(frenchYear, numberMonthInFrenchYear + 1, numberDaysInFrenchMonth + 1, 0,
-                0, 0);
+        FrenchRevolutionaryCalendarDate result = new FrenchRevolutionaryCalendarDate(locale, frenchYear, numberMonthInFrenchYear + 1,
+                numberDaysInFrenchMonth + 1, 0, 0, 0);
         return result;
     }
 

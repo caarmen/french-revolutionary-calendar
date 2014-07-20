@@ -17,19 +17,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
  */
-package ca.rmen.lfrc;
+package ca.rmen.lfrc.i18n;
 
 import java.io.FileNotFoundException;
 
 import junit.framework.TestCase;
 
 /**
- * These tests make sure that we have the correct names for the days in the year.
+ * These tests make sure that the weekday names and month names are encoded in UTF-8
  * 
  */
-public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
+public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
 
-    public FrenchRevolutionaryCalendarDaysOfYearTest(String name) throws FileNotFoundException {
+    public FrenchRevolutionaryCalendarEncodingTest(String name) throws FileNotFoundException {
         super(name);
         System.out.println(name);
     }
@@ -38,20 +38,16 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
     protected void tearDown() {}
 
-    public void testNumberOfDaysOfYearFR() throws Exception {
-        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR.length, 13);
-        for (int i = 0; i < 12; i++) {
-            assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[i].length, 30);
-        }
-        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR[12].length, 6);
+    public void testEncodingWeekday() throws Exception {
+        assertEquals("D\u00e9cadi", FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS[9]);
     }
 
-    public void testNumberOfDaysOfYearEN() throws Exception {
-        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN.length, 13);
-        for (int i = 0; i < 12; i++) {
-            assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN[i].length, 30);
-        }
-        assertEquals(FrenchRevolutionaryCalendar.DAY_OF_YEAR_EN[12].length, 6);
+    public void testEncodingMonth() throws Exception {
+        assertEquals("Niv\u00f4se", FrenchRevolutionaryCalendarLabelsFR.MONTHS[3]);
+    }
+
+    public void testEncodingDayOfYear() throws Exception {
+        assertEquals("M\u00e9l\u00e8ze", FrenchRevolutionaryCalendarLabelsFR.DAY_OF_YEAR[6][16]);
     }
 
 }
