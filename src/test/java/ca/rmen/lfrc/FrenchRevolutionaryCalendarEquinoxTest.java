@@ -22,6 +22,7 @@ package ca.rmen.lfrc;
 import java.io.FileNotFoundException;
 
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
 
 /**
  * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the Equinox method.
@@ -32,26 +33,26 @@ public class FrenchRevolutionaryCalendarEquinoxTest extends FrenchRevolutionaryC
     }
 
     public void testFrenchDate1() throws Exception {
-        validateDates("2011-07-08", "219-10-19", "Nonidi", "Messidor", "Cerise", "Cherry");
+        validateDates("2011-07-08", "219-10-19", "Nonidi", "Messidor", "Cerise", "Cherry", DailyObjectType.PLANT);
     }
 
     public void testFrenchDate2() throws Exception {
-        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire", "Macjonc", "Tuberous pea");
+        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire", "Macjonc", "Tuberous pea", DailyObjectType.PLANT);
     }
 
     public void testFrenchDate6() throws Exception {
-        validateDates("2010-12-25", "219-04-04", "Quartidi", "Nivôse", "Soufre", "Sulphur");
+        validateDates("2010-12-25", "219-04-04", "Quartidi", "Nivôse", "Soufre", "Sulphur", DailyObjectType.MINERAL);
     }
 
     public void testFrenchDate7() throws Exception {
-        validateDates("1792-09-21", "0-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors");
+        validateDates("1792-09-21", "0-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT);
     }
 
     public void testFrenchDate8() throws Exception {
-        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors");
+        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT);
     }
 
     public void testFrenchDate9() throws Exception {
-        validateDates("1791-09-22", "-1-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution");
+        validateDates("1791-09-22", "-1-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT);
     }
 }

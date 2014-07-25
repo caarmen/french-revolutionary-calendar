@@ -38,6 +38,10 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         EQUINOX, ROMME
     };
 
+    public static enum DailyObjectType {
+        PLANT, ANIMAL, TOOL, MINERAL, CONCEPT
+    }
+
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static final String FRENCH_ERA_BEGIN = "1792-09-22 00:00:00";
     private static final String FRENCH_ERA_END = "1811-09-23 00:00:00";

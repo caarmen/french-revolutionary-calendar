@@ -21,6 +21,7 @@ package ca.rmen.lfrc;
 
 import java.util.Locale;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
 import ca.rmen.lfrc.i18n.FrenchRevolutionaryCalendarLabels;
 
 /**
@@ -70,6 +71,15 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
      */
     public int getWeekInMonth() {
         return dayOfMonth % 10;
+    }
+
+    public DailyObjectType getObjectType() {
+        if (month == 13) return DailyObjectType.CONCEPT;
+        else if (dayOfMonth % 10 == 0) return DailyObjectType.TOOL;
+        else if (dayOfMonth % 5 == 0) return DailyObjectType.ANIMAL;
+        else if (month == 4) return DailyObjectType.MINERAL;
+        else
+            return DailyObjectType.PLANT;
     }
 
     public String getMonthName() {
