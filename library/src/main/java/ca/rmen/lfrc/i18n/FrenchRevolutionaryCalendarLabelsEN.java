@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (2012-2014) Carmen Alvarez
+ * Copyright (c) 2012-2014 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

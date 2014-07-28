@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (2012-2014) Carmen Alvarez
+ * Copyright (c) 2012-2014 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -223,7 +223,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
      *         from 0 to 9, the minute is from 0 to 99, and the second is from
      *         0 to 99.
      */
-    private int[] getFrenchTime(Calendar gtime) {
+    public static int[] getFrenchTime(Calendar gtime) {
         int ghour = gtime.get(Calendar.HOUR_OF_DAY);
         int gmin = gtime.get(Calendar.MINUTE);
         int gsec = gtime.get(Calendar.SECOND);

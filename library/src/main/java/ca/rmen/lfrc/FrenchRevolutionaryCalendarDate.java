@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (2012-2014) Carmen Alvarez
+ * Copyright (c) 2012-2014 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -100,6 +100,8 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
     }
 
     public String toString() {
-        return year + "-" + (month) + "-" + (dayOfMonth) + " " + hour + ":" + minute + ":" + second;
+        String timeString = String.format("%d:%02d:%02d", hour, minute, second);
+        return getWeekdayName() + ", " + dayOfMonth + "-" + (getMonthName()) + "-" + (year) + ", " + timeString + ", "
+                + getObjectType().name().toLowerCase(locale) + ":" + getDayOfYear();
     }
 }
