@@ -56,7 +56,7 @@ public class FrenchRevolutionaryCalendarCLI {
                 now(method);
             } else if (args[i].equals("g2f")) {
                 if (i != args.length - 2) usage();
-                g2f(args[++i], method);
+                print(g2f(args[++i], method));
             } else if (args[i].equals("-method")) {
                 String methodName = args[++i];
                 try {
@@ -78,50 +78,51 @@ public class FrenchRevolutionaryCalendarCLI {
         FrenchRevolutionaryCalendar frc = new FrenchRevolutionaryCalendar(Locale.getDefault(), method);
         GregorianCalendar now = (GregorianCalendar) GregorianCalendar.getInstance();
         FrenchRevolutionaryCalendarDate frenchDate = frc.getDate(now);
-        print(frenchDate);
+        print(frenchDate.toString());
     }
 
     /**
      * Convert the given date or timestamp in the Gregorian calendar to the French Revolutionary Calendar and print the result.
      */
-    private static void g2f(String gregorianDateString, CalculationMethod method) {
+    static String g2f(String gregorianDateString, CalculationMethod method) {
         // Try all our possible date and time formats until one works.
         for (String format : FORMATS) {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             try {
                 Date date = sdf.parse(gregorianDateString);
-                GregorianCalendar cal = (GregorianCalendar) GregorianCalendar.getInstance();
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeZone(sdf.getTimeZone());
                 cal.setTime(date);
                 // If we were given only the Gregorian time, only display the French time.
                 if (FORMAT_TIME_ONLY.equals(format)) {
                     int[] frenchTime = FrenchRevolutionaryCalendar.getFrenchTime(cal);
                     String frenchTimeStr = String.format("%d:%02d:%02d", frenchTime[0], frenchTime[1], frenchTime[2]);
-                    System.out.println(frenchTimeStr);
+                    return frenchTimeStr;
                 }
                 // Display the full French date.
                 else {
                     FrenchRevolutionaryCalendar frc = new FrenchRevolutionaryCalendar(Locale.getDefault(), method);
                     FrenchRevolutionaryCalendarDate frenchDate = frc.getDate(cal);
-                    System.out.println(format);
-                    print(frenchDate);
+                    System.err.println("Using format " + format);
+                    return frenchDate.toString();
                 }
-                return;
             } catch (ParseException e) {}
         }
         System.err.println("Unrecognized Gregorian date format: " + gregorianDateString + ". Supported formats are:");
         for (String format : FORMATS)
             System.err.println("  " + format);
+        return "";
     }
 
     /**
-     * Display the French date to the console, using UTF-8 encoding.
+     * Display the given String on the console, using UTF-8 encoding.
      */
-    private static void print(FrenchRevolutionaryCalendarDate date) {
+    private static void print(String string) {
         try {
             PrintStream ps = new PrintStream(System.out, true, "UTF-8");
-            ps.println(date);
+            ps.println(string);
         } catch (UnsupportedEncodingException e) {
-            System.out.println(date);
+            System.out.println(string);
         }
     }
 

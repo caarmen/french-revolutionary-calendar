@@ -38,7 +38,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         EQUINOX, ROMME
     };
 
-    public static enum DailyObjectType {
+    public static enum DailyObjectType { // NO_UCD (use default)
         PLANT, ANIMAL, TOOL, MINERAL, CONCEPT
     }
 

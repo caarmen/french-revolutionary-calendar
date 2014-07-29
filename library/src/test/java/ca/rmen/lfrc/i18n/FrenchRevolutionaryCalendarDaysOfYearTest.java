@@ -19,7 +19,6 @@
  */
 package ca.rmen.lfrc.i18n;
 
-import java.io.FileNotFoundException;
 import java.util.Locale;
 
 import junit.framework.TestCase;
@@ -30,13 +29,15 @@ import junit.framework.TestCase;
  */
 public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
-    public FrenchRevolutionaryCalendarDaysOfYearTest(String name) throws FileNotFoundException {
+    public FrenchRevolutionaryCalendarDaysOfYearTest(String name) {
         super(name);
         System.out.println(name);
     }
 
+    @Override
     protected void setUp() {}
 
+    @Override
     protected void tearDown() {}
 
     public void testNumberOfDaysOfYearFR() {
