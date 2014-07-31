@@ -70,7 +70,7 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
      * @return a number from 1 to 3.
      */
     public int getWeekInMonth() {
-        return dayOfMonth % 10;
+        return ((dayOfMonth - 1) / 10) + 1;
     }
 
     public DailyObjectType getObjectType() {

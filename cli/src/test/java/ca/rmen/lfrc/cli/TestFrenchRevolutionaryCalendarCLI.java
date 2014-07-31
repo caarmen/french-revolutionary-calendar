@@ -70,7 +70,7 @@ public class TestFrenchRevolutionaryCalendarCLI extends TestCase {
     }
 
     void testG2f(String gregorianDateString, String expectedFrenchString, CalculationMethod method) {
-        String actualFrenchString = FrenchRevolutionaryCalendarCLI.g2f(gregorianDateString, method);
+        String actualFrenchString = FrenchRevolutionaryCalendarCLI.g2f(gregorianDateString, method, "%E, %dd-%MMMM-%y, %H:%mm:%ss, %T:%DDDD");
         assertEquals(expectedFrenchString, actualFrenchString);
     }
 
