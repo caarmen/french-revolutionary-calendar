@@ -132,9 +132,7 @@ public class FrenchRevolutionaryCalendarCLI {
         result = result.replaceAll("%d", String.format("%d", frenchDate.dayOfMonth));
         result = result.replaceAll("%H", String.format("%d", frenchDate.hour));
         result = result.replaceAll("%mm", String.format("%02d", frenchDate.minute));
-        result = result.replaceAll("%m", String.format("%d", frenchDate.minute));
         result = result.replaceAll("%ss", String.format("%02d", frenchDate.second));
-        result = result.replaceAll("%s", String.format("%d", frenchDate.second));
 
         result = result.replaceAll("%E", frenchDate.getWeekdayName());
         result = result.replaceAll("%W", String.format("%d", frenchDate.getWeekInMonth()));
@@ -172,9 +170,7 @@ public class FrenchRevolutionaryCalendarCLI {
         System.err.println("  %d: day: 2");
         System.err.println("  %H: hour: 5");
         System.err.println("  %mm: 2-digit minute: 08");
-        System.err.println("  %m: minute: 8");
         System.err.println("  %ss: 2-digit second: 03");
-        System.err.println("  %s: second: 3");
         System.err.println("  %E: weekday name: Duodi");
         System.err.println("  %W: week in month: 2");
         System.err.println("  %T: type of object of the day: plant");

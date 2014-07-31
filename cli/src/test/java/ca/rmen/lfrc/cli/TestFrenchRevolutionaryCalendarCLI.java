@@ -59,6 +59,13 @@ public class TestFrenchRevolutionaryCalendarCLI extends TestCase {
 
     public void testG2fDateEquinox() {
         testG2f("2011-07-08", "Nonidi, 19-Messidor-219, 0:00:00, plant:Cherry", CalculationMethod.EQUINOX);
+        testG2f("2011-07-08", "19/Messidor/219", CalculationMethod.EQUINOX, "%dd/%MMMM/%y");
+        testG2f("2011-07-08", "19/10/219", CalculationMethod.EQUINOX, "%dd/%MM/%y");
+        testG2f("2011-07-08", "19/10/219", CalculationMethod.EQUINOX, "%dd/%M/%y");
+        testG2f("2011-07-08", "19/10/219 (2)", CalculationMethod.EQUINOX, "%d/%M/%y (%W)");
+        testG2f("1792-09-22", "1/1/1 (1)", CalculationMethod.EQUINOX, "%d/%M/%y (%W)");
+        testG2f("1792-09-22", "01/01/1 (1)", CalculationMethod.EQUINOX, "%dd/%MM/%y (%W)");
+        testG2f("1792-10-01", "10/01/1 (1)", CalculationMethod.EQUINOX, "%dd/%MM/%y (%W)");
     }
 
     public void testG2TimeRomme() {
@@ -67,10 +74,15 @@ public class TestFrenchRevolutionaryCalendarCLI extends TestCase {
 
     public void testG2TimeEquinox() {
         testG2f("11:30:30", "4:79:51", CalculationMethod.EQUINOX);
+        testG2f("12:00:00", "5:00:00", CalculationMethod.EQUINOX);
     }
 
     void testG2f(String gregorianDateString, String expectedFrenchString, CalculationMethod method) {
-        String actualFrenchString = FrenchRevolutionaryCalendarCLI.g2f(gregorianDateString, method, "%E, %dd-%MMMM-%y, %H:%mm:%ss, %T:%DDDD");
+        testG2f(gregorianDateString, expectedFrenchString, method, "%E, %dd-%MMMM-%y, %H:%mm:%ss, %T:%DDDD");
+    }
+
+    void testG2f(String gregorianDateString, String expectedFrenchString, CalculationMethod method, String format) {
+        String actualFrenchString = FrenchRevolutionaryCalendarCLI.g2f(gregorianDateString, method, format);
         assertEquals(expectedFrenchString, actualFrenchString);
     }
 
