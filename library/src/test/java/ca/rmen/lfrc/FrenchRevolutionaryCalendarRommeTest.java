@@ -33,34 +33,34 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
     }
 
     public void testFrenchDate1() throws Exception {
-        validateDates("2011-07-08", "219-10-20", "Décadi", "Messidor", "Parc", "Park", DailyObjectType.TOOL);
+        validateDates("2011-07-08", "219-10-20", "Décadi", "Messidor", "Parc", "Park", DailyObjectType.TOOL, 2);
     }
 
     public void testFrenchDate2() throws Exception {
-        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire", "Macjonc", "Tuberous pea", DailyObjectType.PLANT);
+        validateDates("2009-11-17", "218-02-27", "Septidi", "Brumaire", "Macjonc", "Tuberous pea", DailyObjectType.PLANT, 3);
     }
 
     public void testFrenchDate4() throws Exception {
-        validateDates("1812-09-23", "21-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT);
+        validateDates("1812-09-23", "21-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
     }
 
     public void testFrenchDate5() throws Exception {
-        validateDates("2011-09-23", "220-01-02", "Duodi", "Vendémiaire", "Safran", "Saffron", DailyObjectType.PLANT);
+        validateDates("2011-09-23", "220-01-02", "Duodi", "Vendémiaire", "Safran", "Saffron", DailyObjectType.PLANT, 1);
     }
 
     public void testFrenchDate6() throws Exception {
-        validateDates("2010-12-25", "219-04-05", "Quintidi", "Nivôse", "Chien", "Dog", DailyObjectType.ANIMAL);
+        validateDates("2010-12-25", "219-04-05", "Quintidi", "Nivôse", "Chien", "Dog", DailyObjectType.ANIMAL, 1);
     }
 
     public void testFrenchDate7() throws Exception {
-        validateDates("1792-09-21", "0-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT);
+        validateDates("1792-09-21", "0-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT, 1);
     }
 
     public void testFrenchDate8() throws Exception {
-        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT);
+        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
     }
 
     public void testFrenchDate9() throws Exception {
-        validateDates("1791-09-22", "0-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT);
+        validateDates("1791-09-22", "0-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
     }
 }
