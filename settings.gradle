@@ -1,0 +1,6 @@
+rootProject.name = 'parent'
+include ':lib-french-revolutionary-calendar'
+include ':french-revolutionary-calendar-cli'
+
+project(':lib-french-revolutionary-calendar').projectDir = "$rootDir/library" as File
+project(':french-revolutionary-calendar-cli').projectDir = "$rootDir/cli" as File
