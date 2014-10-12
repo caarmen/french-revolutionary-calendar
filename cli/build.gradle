@@ -1,6 +1,4 @@
-
-apply plugin:'application'
-mainClassName = "ca.rmen.lfrc.cli.FrenchRevolutionaryCalendarCLI"
+apply plugin: 'gradle-one-jar'
 
 description = 'french-revolutionary-calendar-cli'
 dependencies {
@@ -8,3 +6,21 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version:'3.8.1'
 }
 
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+    }
+}
+
+// This task will create a jar containing the CLI program class
+// as well as all the library classes, which can be run with
+// java -jar.
+task cliStandaloneJar(type: OneJar) {
+    mainClass = 'ca.rmen.lfrc.cli.FrenchRevolutionaryCalendarCLI'
+}
+
+build.dependsOn cliStandaloneJar
