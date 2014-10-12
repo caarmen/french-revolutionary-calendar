@@ -1,6 +1,10 @@
 
+apply plugin:'application'
+mainClassName = "ca.rmen.lfrc.cli.FrenchRevolutionaryCalendarCLI"
+
 description = 'french-revolutionary-calendar-cli'
 dependencies {
   compile project(':lib-french-revolutionary-calendar')
     testCompile group: 'junit', name: 'junit', version:'3.8.1'
 }
+
