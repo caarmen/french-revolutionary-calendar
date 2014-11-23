@@ -173,12 +173,12 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // Create a fake calendar object (fake because this is not really a
         // Gregorian date), corresponding to the end of the French calendar era.
         // This was in the French year 20. Since in the Gregorian year 20, there
-        // were no leap years yet, we add 10000 to the year, so that the
+        // were no leap years yet, we add 2000 to the year, so that the
         // Gregorian calendar implementation can handle the leap years.
 
         // The end of the French calendar system was the beginning of the year
         // 20.
-        long fakeEndFrenchEraTimestamp = new GregorianCalendar(10020, 0, 1).getTimeInMillis();
+        long fakeEndFrenchEraTimestamp = new GregorianCalendar(2020, 0, 1).getTimeInMillis();
         // Add the elapsed time to the French date.
         long fakeFrenchTimestamp = fakeEndFrenchEraTimestamp + numMillisSinceEndOfFrenchEra;
 
@@ -191,7 +191,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         int frenchDayInYear = fakeFrenchDate.get(Calendar.DAY_OF_YEAR);
 
         // Create and return a French calendar object.
-        FrenchRevolutionaryCalendarDate result = getFrenchDate(frenchYear - 10000, frenchDayInYear - 1);
+        FrenchRevolutionaryCalendarDate result = getFrenchDate(frenchYear - 2000, frenchDayInYear - 1);
         return result;
     }
 
