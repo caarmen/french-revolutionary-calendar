@@ -8,7 +8,7 @@
   <groupId>ca.rmen</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <name>french-revolutionary-calendar</name>
   <url>http://rmen.ca</url>
 
