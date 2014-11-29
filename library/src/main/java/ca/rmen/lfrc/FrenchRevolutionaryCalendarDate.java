@@ -43,7 +43,7 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
 
     /**
      * @param year The year in the French Revolutionary Calendar.
-     * @param month The month in the year, from 1 to 11
+     * @param month The month in the year, from 1 to 13
      * @param dayOfMonth The day in the month, from 1 to 30.
      * @param hour The hour of the day, from 0 to 9.
      * @param minute The minute of the hour, from 0 to 100.

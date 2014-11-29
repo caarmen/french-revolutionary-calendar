@@ -140,7 +140,15 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // The DAY_OF_YEAR in the French year, from 0 to 365. This is the
         // number of days elapsed 1stVendemiaire of the French year and the
         // given timestamp.
-        int numberDaysInFrenchYear = (int) ((gregorianDate.getTimeInMillis() - g1stVendemiaire.getTimeInMillis()) / NUM_MILLISECONDS_IN_DAY);
+
+        // Take into account DST offset difference between the equinox and today.
+        // Example: if today in Paris is November 29, our DST offset is 0, but the DST offset at the equinox in September was 1 hour.
+        // We consider the September equinox was to be at 23 sept 0:00, which is 22 sept 22:00 GMT.
+        // And now is 29 November 22:30 GMT.  
+        // If we don't take into account the DST difference, we'll think that now is OVER 68 days since the equinox,
+        // but it's really just under 68 days.
+        int numberDaysInFrenchYear = (int) ((gregorianDate.getTimeInMillis() + gregorianDate.get(Calendar.DST_OFFSET) 
+                - g1stVendemiaire.getTimeInMillis() - g1stVendemiaire.get(Calendar.DST_OFFSET)) / NUM_MILLISECONDS_IN_DAY);
         // Create and return the French calendar object.
         FrenchRevolutionaryCalendarDate result = getFrenchDate(frenchYear, numberDaysInFrenchYear);
         return result;
