@@ -40,24 +40,24 @@ public class TestFrenchRevolutionaryCalendarCLI extends TestCase {
     }
 
     public void testG2fDateAndTimeRommeISO() {
-        testG2f("2011-07-08T11:30:30+0200", "Décadi, 20-Messidor-219, 4:79:51, tool:Park", CalculationMethod.ROMME);
-        testG2f("2011-07-08T11:30:30PDT", "Décadi, 20-Messidor-219, 4:79:51, tool:Park", CalculationMethod.ROMME);
+        testG2f("2011-07-08T11:30:30+0200", "Décadi, 20-Messidor-219, 4:79:51, tool:Pen", CalculationMethod.ROMME);
+        testG2f("2011-07-08T11:30:30PDT", "Décadi, 20-Messidor-219, 4:79:51, tool:Pen", CalculationMethod.ROMME);
     }
 
     public void testG2fDateAndTimeRommeFullTimestamp() {
-        testG2f("2011-07-08 11:30:30 CEST", "Décadi, 20-Messidor-219, 4:79:51, tool:Park", CalculationMethod.ROMME);
-        testG2f("2011-07-08 11:30:30 PDT", "Décadi, 20-Messidor-219, 4:79:51, tool:Park", CalculationMethod.ROMME);
+        testG2f("2011-07-08 11:30:30 CEST", "Décadi, 20-Messidor-219, 4:79:51, tool:Pen", CalculationMethod.ROMME);
+        testG2f("2011-07-08 11:30:30 PDT", "Décadi, 20-Messidor-219, 4:79:51, tool:Pen", CalculationMethod.ROMME);
         testG2f("2014-11-29 22:59:59 CET", "Nonidi, 09-Frimaire-223, 9:58:32, plant:Juniper", CalculationMethod.ROMME);
         testG2f("2014-11-29 23:59:59 CET", "Nonidi, 09-Frimaire-223, 9:99:98, plant:Juniper", CalculationMethod.ROMME);
         testG2f("2014-11-30 00:00:01 CET", "Décadi, 10-Frimaire-223, 0:00:01, tool:Pickaxe", CalculationMethod.ROMME);
     }
 
     public void testG2fDateAndTimeRommeFullTimestamp2() {
-        testG2f("2011-07-08 11:30:30 +0200", "Décadi, 20-Messidor-219, 4:79:51, tool:Park", CalculationMethod.ROMME);
+        testG2f("2011-07-08 11:30:30 +0200", "Décadi, 20-Messidor-219, 4:79:51, tool:Pen", CalculationMethod.ROMME);
     }
 
     public void testG2fDateRomme() {
-        testG2f("2011-07-08", "Décadi, 20-Messidor-219, 0:00:00, tool:Park", CalculationMethod.ROMME);
+        testG2f("2011-07-08", "Décadi, 20-Messidor-219, 0:00:00, tool:Pen", CalculationMethod.ROMME);
     }
 
     public void testG2fDateEquinox() {

@@ -33,7 +33,7 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
     }
 
     public void testFrenchDate1() throws Exception {
-        validateDates("2011-07-08", "219-10-20", "Décadi", "Messidor", "Parc", "Park", DailyObjectType.TOOL, 2);
+        validateDates("2011-07-08", "219-10-20", "Décadi", "Messidor", "Parc", "Pen", DailyObjectType.TOOL, 2);
     }
 
     public void testFrenchDate2() throws Exception {
