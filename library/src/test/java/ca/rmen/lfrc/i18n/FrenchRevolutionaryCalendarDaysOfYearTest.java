@@ -144,6 +144,18 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
         testDayOfYear(new Locale("ca", "ES"), 9, "Xirivia");
     }
 
+    public void testDayOfYear17() {
+        testDayOfYear(new Locale("it", "IT"), 364, "Opinione");
+    }
+
+    public void testDayOfYear18() {
+        testDayOfYear(new Locale("it", "IT"), 79, "Sabina");
+    }
+
+    public void testDayOfYear19() {
+        testDayOfYear(new Locale("it", "IT"), 203, "Ippocastano");
+    }
+
     private void testDayOfYear(Locale locale, int dayOfYear, String expectedName) {
         FrenchRevolutionaryCalendarLabels labels = FrenchRevolutionaryCalendarLabels.getInstance(locale);
         assertEquals(expectedName, labels.getDayOfYear(dayOfYear));

@@ -58,4 +58,8 @@ public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
         assertEquals("Niv\u00f3s", FrenchRevolutionaryCalendarLabelsCA.MONTHS[3]);
     }
 
+    public void testEncodingIT() {
+        assertEquals("Primid\u00ec", FrenchRevolutionaryCalendarLabelsIT.WEEKDAYS[0]);
+    }
+
 }
