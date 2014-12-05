@@ -72,6 +72,14 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
         assertEquals(FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR[12].length, 6);
     }
 
+    public void testNumberOfDaysOfYearIT() {
+        assertEquals(FrenchRevolutionaryCalendarLabelsIT.DAY_OF_YEAR.length, 13);
+        for (int i = 0; i < 12; i++) {
+            assertEquals(FrenchRevolutionaryCalendarLabelsIT.DAY_OF_YEAR[i].length, 30);
+        }
+        assertEquals(FrenchRevolutionaryCalendarLabelsIT.DAY_OF_YEAR[12].length, 6);
+    }
+
     public void testDayOfYear1() {
         testDayOfYear(Locale.ENGLISH, 69, "Juniper");
     }
