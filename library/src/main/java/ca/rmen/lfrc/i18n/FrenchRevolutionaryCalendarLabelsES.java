@@ -87,8 +87,12 @@ class FrenchRevolutionaryCalendarLabelsES extends FrenchRevolutionaryCalendarLab
             // Sanculotides
             new String[] { "Virtud", "Talento", "Trabajo", "Opinión", "Recompensas", "Revolución" }, };
 
+    public static final String[] DAILY_OBJECT_TYPES = new String[]{
+            "La planta", "El animal", "La herramienta", "El mineral", "El concepto"
+    };
+
     FrenchRevolutionaryCalendarLabelsES() {
-        super(FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS, MONTHS, DAY_OF_YEAR);
+        super(FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS, MONTHS, DAY_OF_YEAR, DAILY_OBJECT_TYPES);
     }
 
 }

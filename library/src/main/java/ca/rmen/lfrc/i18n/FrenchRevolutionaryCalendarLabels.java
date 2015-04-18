@@ -19,6 +19,8 @@
  */
 package ca.rmen.lfrc.i18n;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -39,11 +41,13 @@ public abstract class FrenchRevolutionaryCalendarLabels {
     private final String[] weekdays;
     private final String[] months;
     private final String[][] daysOfYear;
+    private final String[] dailyObjectTypes;
 
-    FrenchRevolutionaryCalendarLabels(String[] weekdays, String[] months, String[][] daysOfYear) {
+    FrenchRevolutionaryCalendarLabels(String[] weekdays, String[] months, String[][] daysOfYear, String[] dailyObjectTypes) {
         this.weekdays = weekdays;
         this.months = months;
         this.daysOfYear = daysOfYear;
+        this.dailyObjectTypes = dailyObjectTypes;
     }
 
     /**
@@ -75,6 +79,10 @@ public abstract class FrenchRevolutionaryCalendarLabels {
         int month = ((dayOfYear - 1) / 30) + 1;
         int dayOfMonth = ((dayOfYear - 1) - (month - 1) * 30) + 1;
         return getDayOfYear(month, dayOfMonth);
+    }
+
+    public String getDailyObjectTypeName(FrenchRevolutionaryCalendar.DailyObjectType type) {
+        return dailyObjectTypes[type.ordinal()];
     }
 
     public static FrenchRevolutionaryCalendarLabels getInstance(Locale locale) {
