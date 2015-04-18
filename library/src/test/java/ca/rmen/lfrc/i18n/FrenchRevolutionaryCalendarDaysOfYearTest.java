@@ -21,6 +21,7 @@ package ca.rmen.lfrc.i18n;
 
 import java.util.Locale;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar;
 import junit.framework.TestCase;
 
 /**
@@ -154,6 +155,26 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
 
     public void testDayOfYear19() {
         testDayOfYear(new Locale("it", "IT"), 203, "Ippocastano");
+    }
+
+    public void testNumberDailyObjectTypeEN() {
+        assert(FrenchRevolutionaryCalendarLabelsEN.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
+    }
+
+    public void testNumberDailyObjectTypeFR() {
+        assert(FrenchRevolutionaryCalendarLabelsFR.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
+    }
+
+    public void testNumberDailyObjectTypeES() {
+        assert(FrenchRevolutionaryCalendarLabelsES.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
+    }
+
+    public void testNumberDailyObjectTypeIT() {
+        assert(FrenchRevolutionaryCalendarLabelsIT.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
+    }
+
+    public void testNumberDailyObjectTypeCA() {
+        assert(FrenchRevolutionaryCalendarLabelsCA.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
     }
 
     private void testDayOfYear(Locale locale, int dayOfYear, String expectedName) {
