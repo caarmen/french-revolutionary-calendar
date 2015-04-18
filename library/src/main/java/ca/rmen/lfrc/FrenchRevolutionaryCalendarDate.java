@@ -82,6 +82,11 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
             return DailyObjectType.PLANT;
     }
 
+    public String getObjectTypeName() {
+        DailyObjectType type = getObjectType();
+        return FrenchRevolutionaryCalendarLabels.getInstance(locale).getDailyObjectTypeName(type);
+    }
+
     public String getMonthName() {
         return FrenchRevolutionaryCalendarLabels.getInstance(locale).getMonthName(month);
     }
