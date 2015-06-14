@@ -19,6 +19,7 @@
  */
 package ca.rmen.lfrc;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
@@ -32,7 +33,7 @@ import ca.rmen.lfrc.i18n.FrenchRevolutionaryCalendarLabels;
  * @author calvarez
  * 
  */
-public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
+public class FrenchRevolutionaryCalendarDate implements Serializable { // NO_UCD (use default)
     private final Locale locale;
     public final int year;
     public final int month;
@@ -108,5 +109,35 @@ public class FrenchRevolutionaryCalendarDate { // NO_UCD (use default)
         String timeString = String.format("%d:%02d:%02d", hour, minute, second);
         return getWeekdayName() + ", " + dayOfMonth + "-" + (getMonthName()) + "-" + (year) + ", " + timeString + ", "
                 + getObjectType().name().toLowerCase(locale) + ":" + getDayOfYear();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FrenchRevolutionaryCalendarDate that = (FrenchRevolutionaryCalendarDate) o;
+
+        if (dayOfMonth != that.dayOfMonth) return false;
+        if (hour != that.hour) return false;
+        if (minute != that.minute) return false;
+        if (month != that.month) return false;
+        if (second != that.second) return false;
+        if (year != that.year) return false;
+        if (!locale.equals(that.locale)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = locale.hashCode();
+        result = 31 * result + year;
+        result = 31 * result + month;
+        result = 31 * result + dayOfMonth;
+        result = 31 * result + hour;
+        result = 31 * result + minute;
+        result = 31 * result + second;
+        return result;
     }
 }

@@ -19,7 +19,7 @@
  */
 package ca.rmen.lfrc;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,9 +46,11 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    protected void setUp() {}
+    protected void setUp() {
+    }
 
-    protected void tearDown() {}
+    protected void tearDown() {
+    }
 
     public void testFrenchDate() throws Exception {
         validateDates("1796-08-04", "4-11-17", "Septidi", "Thermidor", "Lin", "Flax", DailyObjectType.PLANT, 2);
@@ -59,7 +61,7 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     }
 
     protected void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
-            String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
+                                 String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
         // Test in French
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(frcalFR, gregorian, simpleDateFormat);
         String actualFrench = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.dayOfMonth);
@@ -74,7 +76,7 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     }
 
     protected void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
-            String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
+                                       String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
         // Test in French
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(frcalFR, gregorian, simpleDateTimeFormat);
         String actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
@@ -89,12 +91,13 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
     }
 
     private void validateDateAttributes(FrenchRevolutionaryCalendarDate actual, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear,
-            DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) {
+                                        DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) {
         assertEquals(expectedDayOfWeek, actual.getWeekdayName());
         assertEquals(expectedMonthName, actual.getMonthName());
         assertEquals(expectedDayOfYear, actual.getDayOfYear());
         assertEquals(expectedDailyObjectType, actual.getObjectType());
         assertEquals(expectedWeekInMonth, actual.getWeekInMonth());
+        validateSerialization(actual);
     }
 
     private FrenchRevolutionaryCalendarDate getFrenchDate(FrenchRevolutionaryCalendar frcal, String gregorian, SimpleDateFormat parser) throws ParseException {
@@ -103,5 +106,18 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
         cal.setTime(testDate);
         FrenchRevolutionaryCalendarDate fcd = frcal.getDate(cal);
         return fcd;
+    }
+
+    private void validateSerialization(FrenchRevolutionaryCalendarDate expected) {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            new ObjectOutputStream(os).writeObject(expected);
+            FrenchRevolutionaryCalendarDate actual = (FrenchRevolutionaryCalendarDate) new ObjectInputStream(new ByteArrayInputStream(os.toByteArray())).readObject();
+            assertEquals(expected, actual);
+        } catch (IOException e) {
+            fail(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            fail(e.getMessage());
+        }
     }
 }
