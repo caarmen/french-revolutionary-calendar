@@ -29,8 +29,8 @@ package ca.rmen.lfrc.i18n;
  */
 class FrenchRevolutionaryCalendarLabelsDE extends FrenchRevolutionaryCalendarLabels {
 
-    public static final String[] MONTHS = new String[]{"Herbſtmonat", "Nebelmonat", "Reiſmonat", "Schneemonat", "Regenmonat", "Windmonat", "Sproſſenmonat", "Blüthemonat",
-            "Weiſenmonat", "Erndtemonat", "Hitzemonat", "Obſtmonat", "Ohne-Hoſen"};
+    public static final String[] MONTHS = new String[]{"Weinmonat", "Nebelmonat", "Reifmonat", "Schneemonat", "Regenmonat", "Windmonat", "Keimmonat", "Blütenmonat",
+            "Weisenmonat", "Erntemonat", "Hitzemonat", "Fruchtmonat", "Sansculottiden"};
 
     public static final String[][] DAY_OF_YEAR = new String[][]{
 
@@ -97,7 +97,7 @@ class FrenchRevolutionaryCalendarLabelsDE extends FrenchRevolutionaryCalendarLab
                     "Heckenrose", "Haselnuss", "Hopfen", "Sorghum", "Krebs", "Pomeranze", "Goldraute", "Mais", "Eßkastanie", "Korb", },
 
             // Sanculotides
-            new String[]{"Tugenden", "Genies", "Arbeit", "Meinung", "Belohnungen", "Revolution"},};
+            new String[]{"Tugenden", "Geistes", "Arbeit", "Meinung", "Belohnungen", "Revolution"},};
 
     public static final String[] DAILY_OBJECT_TYPES = new String[]{
             "Die Pflanze", "Das Tier", "Das Werkzeug", "Das Mineral", "Das Konzept"
