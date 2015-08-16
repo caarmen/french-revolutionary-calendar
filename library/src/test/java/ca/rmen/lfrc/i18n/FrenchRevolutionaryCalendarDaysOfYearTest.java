@@ -157,6 +157,18 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest extends TestCase {
         testDayOfYear(new Locale("it", "IT"), 203, "Ippocastano");
     }
 
+    public void testDayOfYear20() {
+        testDayOfYear(new Locale("de", "DE"), 49, "Granatapfel");
+    }
+
+    public void testDayOfYear21() {
+        testDayOfYear(new Locale("de", "DE"), 83, "Schilfrohr");
+    }
+
+    public void testDayOfYear22() {
+        testDayOfYear(new Locale("de", "DE"), 354, "Sorghum");
+    }
+
     public void testNumberDailyObjectTypeEN() {
         assert(FrenchRevolutionaryCalendarLabelsEN.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
     }
