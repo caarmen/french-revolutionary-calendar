@@ -89,7 +89,7 @@ class FrenchRevolutionaryCalendarLabelsFR extends FrenchRevolutionaryCalendarLab
                     "Fenouil", "Épine vinette", "Noix", "Truite", "Citron", "Cardère", "Nerprun", "Tagette", "Hotte", "Églantier", "Noisette", "Houblon",
                     "Sorgho", "Écrevisse", "Bigarade", "Verge d'or", "Maïs", "Marron", "Panier" },
             // Sanculotides
-            new String[] { "Vertu", "Génie", "Tavail", "Opinion", "Récompenses", "Révolution" }, };
+            new String[] { "Vertu", "Génie", "Travail", "Opinion", "Récompenses", "Révolution" }, };
 
     public static final String[] DAILY_OBJECT_TYPES = new String[]{
             "La plante", "L'animal", "L'outil", "Le minérale", "Le concept"
