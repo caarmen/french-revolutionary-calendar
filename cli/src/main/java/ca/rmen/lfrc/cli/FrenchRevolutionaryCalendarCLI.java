@@ -19,6 +19,10 @@
  */
 package ca.rmen.lfrc.cli;
 
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar;
+import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
+import ca.rmen.lfrc.FrenchRevolutionaryCalendarDate;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -31,10 +35,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import ca.rmen.lfrc.FrenchRevolutionaryCalendar;
-import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
-import ca.rmen.lfrc.FrenchRevolutionaryCalendarDate;
 
 /**
  * Command-line interface to the French Revolutionary Calendar library functions.
@@ -159,7 +159,7 @@ public class FrenchRevolutionaryCalendarCLI {
     private static void usage() {
         System.err.println(getProgramName() + " [options] now | g2f <Gregorian date>");
         System.err.println("options:");
-        System.err.println("-method <romme|equinox>");
+        System.err.println("-method <romme|equinox|von_madler>");
         System.err.println("-output-format <output format>: default: %E, %dd-%MMMM-%y, %H:%mm:%ss, %T:%DDDD");
         System.err.println("  Supported tags:");
         System.err.println("  %y: year: 219");
