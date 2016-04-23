@@ -19,10 +19,10 @@
  */
 package ca.rmen.lfrc;
 
-import java.io.FileNotFoundException;
-
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
+
+import java.io.FileNotFoundException;
 
 /**
  * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the Romme method.
@@ -62,5 +62,18 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
 
     public void testFrenchDate9() throws Exception {
         validateDates("1791-09-22", "0-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
+    }
+
+    public void testFrenchDate10() throws Exception {
+        validateDates("2016-01-01", "224-04-12", "Duodi", "Nivôse", "Argile", "Clay", DailyObjectType.MINERAL, 2);
+        validateDates("2016-01-20", "224-05-01", "Primidi", "Pluviôse", "Lauréole", "Spurge-laurel", DailyObjectType.PLANT, 1);
+        validateDates("2016-02-19", "224-06-01", "Primidi", "Ventôse", "Tussilage", "Coltsfoot", DailyObjectType.PLANT, 1);
+        validateDates("2016-02-28", "224-06-10", "Décadi", "Ventôse", "Bêche", "Spade", DailyObjectType.TOOL, 1);
+        validateDates("2016-02-29", "224-06-11", "Primidi", "Ventôse", "Narcisse", "Narcissus", DailyObjectType.PLANT, 2);
+        validateDates("2016-03-05", "224-06-16", "Sextidi", "Ventôse", "Épinard", "Spinach", DailyObjectType.PLANT, 2);
+        validateDates("2016-03-20", "224-07-01", "Primidi", "Germinal", "Primevère", "Primrose", DailyObjectType.PLANT, 1);
+        validateDates("2016-03-21", "224-07-02", "Duodi", "Germinal", "Platane", "Plane Tree", DailyObjectType.PLANT, 1);
+        validateDates("2016-04-20", "224-08-02", "Duodi", "Floréal", "Chêne", "Oak Tree", DailyObjectType.PLANT, 1);
+        validateDates("2016-04-24", "224-08-06", "Sextidi", "Floréal", "Ancolie", "Common Columbine", DailyObjectType.PLANT, 1);
     }
 }
