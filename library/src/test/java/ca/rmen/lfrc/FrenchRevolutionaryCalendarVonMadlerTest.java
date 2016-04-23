@@ -45,23 +45,38 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
         int frenchYear = 129;
         List<String> failures = new ArrayList<String>();
         for (int gregorianYear = 1920; gregorianYear <= 2047; gregorianYear++) {
-            // Verify 1er Vendemiaire
+
+            // Verify 1er Vendemiaire: New Year
             GregorianCalendar gregDate = getGregorianDate(gregorianYear, 9, 23);
             FrenchRevolutionaryCalendarDate fcd = frCal.getDate(gregDate);
             if (fcd.year != frenchYear || fcd.month != 1 || fcd.dayOfMonth != 1){
                 failures.add("Expected " + frenchYear + "-01-01 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
             }
 
-            // Verify the day before 1er Vendemiaire
+            // Verify the day before 1er Vendemiaire: the last day of the previous year
             gregDate.add(Calendar.DAY_OF_YEAR, -1);
             fcd = frCal.getDate(gregDate);
             int expectedDayOfMonth = (frenchYear - 1) % 4 == 0 && (frenchYear - 1) % 128 != 0 ? 6 : 5;
             if (fcd.year != frenchYear-1 || fcd.month != 13 || fcd.dayOfMonth != expectedDayOfMonth){
                 failures.add("Expected " + (frenchYear-1) + "-13-" + expectedDayOfMonth + ", but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
             }
-            frenchYear++;
 
+            // Verify 1er Frimaire: no more daylight savings
+            gregDate.add(Calendar.DAY_OF_YEAR, 61);
+            fcd = frCal.getDate(gregDate);
+            if (fcd.year != frenchYear || fcd.month != 3 || fcd.dayOfMonth != 1){
+                failures.add("Expected " + frenchYear + "-03-01 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
+            }
+
+            // Verify 1er Pluviose: this is in the following Gregorian year (around January 20).
+            gregDate.add(Calendar.DAY_OF_YEAR, 60);
+            fcd = frCal.getDate(gregDate);
+            if (fcd.year != frenchYear || fcd.month != 5 || fcd.dayOfMonth != 1){
+                failures.add("Expected " + frenchYear + "-05-01 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
+            }
+            frenchYear++;
         }
+
         if (!failures.isEmpty()) {
             StringBuilder failuresString = new StringBuilder();
             for (String failure : failures) {
@@ -69,7 +84,6 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
             }
             fail(failuresString.toString());
         }
-
     }
 
     private GregorianCalendar getGregorianDate(int year, int month, int day) {
