@@ -247,35 +247,6 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     }
 
     /**
-     * @return the number of leap days between the beginning of yearBegin and the end of yearEnd.
-     * This uses the rule in which a year is a leap year if it is divisible by 4 but not divisible by 128.
-     */
-    private int getLeapDaysBetweenYearsVonMadler(int yearBegin, int yearEnd) {
-        int yearsDivisibleBy4 = getDividendCountBetween(yearBegin, yearEnd, 4);
-        int yearsDivisibleBy128 = getDividendCountBetween(yearBegin, yearEnd, 128);
-        return yearsDivisibleBy4 - yearsDivisibleBy128;
-    }
-
-    /**
-     * @return the count of numbers between begin and end, inclusive, for which the number % divisor is 0.
-     * For example, to find the number of years divisible by 4 between 1970 and 1980, inclusive, call
-     * this method with begin=1970, end=1980, and divisor=4.
-     */
-    private int getDividendCountBetween (int begin, int end, int divisor) {
-        // Example: begin=1970, end=1980, divisor = 4
-        int rangeStart = begin;
-        // rangeStart = 1970 + 4 - (1970 % 4) = 1970 + 4 - 2 = 1972
-        if (rangeStart % divisor != 0) rangeStart = rangeStart + divisor - (rangeStart % divisor);
-
-        // rangeEnd = 1980 - (1980 % 4) = 1980 - 0 = 1980
-        int rangeEnd = end - (end % divisor);
-
-        // return ((1980 - 1972) / 4) + 1 = (8/4) + 1 = 2 + 1 = 3
-        // Therefore: there are three numbers divisible by 4 between 1970 and 1980. (They are 1972, 1976, 1980.)
-        return ((rangeEnd - rangeStart) / divisor) + 1;
-    }
-
-    /**
      * @param frenchYear
      *            the year in the French calendar
      * @param numberDaysInFrenchYear
