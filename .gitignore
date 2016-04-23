@@ -2,3 +2,7 @@
 .project
 .settings
 target/
+.idea/
+*.iml
+.DS_Store
+local.properties

@@ -34,8 +34,8 @@ import java.util.Locale;
  */
 public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
 
-    public static enum CalculationMethod { // NO_UCD (use default)
-        EQUINOX, ROMME
+    public enum CalculationMethod { // NO_UCD (use default)
+        EQUINOX, ROMME, VON_MADLER
     };
 
     public static enum DailyObjectType { // NO_UCD (use default)
@@ -43,13 +43,18 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     }
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final String FRENCH_ERA_BEGIN = "1792-09-22 00:00:00";
+    private static final String FRENCH_ERA_YEAR_ZERO = "1791-09-23 00:00:00";
+    private static final String FRENCH_ERA_YEAR_ONE = "1792-09-22 00:00:00";
     private static final String FRENCH_ERA_END = "1811-09-23 00:00:00";
     private static final long NUM_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
     private static final int EQUINOX_MONTH = 8; // September
 
+    // Von Madler eap years are divisible by 4 but not by 128.
+    private static final double VON_MADLER_DAYS_IN_YEAR = 365 + (1.0 / 4) - (1.0 / 128);
+
     private final Locale locale;
-    private Calendar frenchEraBegin;
+    private Calendar frenchEraYearZero;
+    private Calendar frenchEraYearOne;
     private Calendar frenchEraEnd;
     private CalculationMethod calculationMethod;
 
@@ -63,13 +68,14 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // for which equinoxes were used.
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         try {
-
-            frenchEraBegin = Calendar.getInstance();
-            frenchEraBegin.setTime(sdf.parse(FRENCH_ERA_BEGIN));
+            frenchEraYearZero = Calendar.getInstance();
+            frenchEraYearZero.setTime(sdf.parse(FRENCH_ERA_YEAR_ZERO));
+            frenchEraYearOne = Calendar.getInstance();
+            frenchEraYearOne.setTime(sdf.parse(FRENCH_ERA_YEAR_ONE));
             frenchEraEnd = Calendar.getInstance();
             frenchEraEnd.setTime(sdf.parse(FRENCH_ERA_END));
         } catch (ParseException e) {
-            debug("Error reading French epoch " + FRENCH_ERA_BEGIN, e);
+            debug("Error reading French epoch " + FRENCH_ERA_YEAR_ONE, e);
         }
     }
 
@@ -94,10 +100,12 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // calendar was used (regardless of the selected calculation method), use the equinox
         // calculation method.
         FrenchRevolutionaryCalendarDate result = null;
-        if (calculationMethod == CalculationMethod.EQUINOX || (gregorianDate.after(frenchEraBegin) && gregorianDate.before(frenchEraEnd))) {
+        if (calculationMethod == CalculationMethod.EQUINOX || (gregorianDate.after(frenchEraYearOne) && gregorianDate.before(frenchEraEnd))) {
             result = getDateEquinox(gregorianDate);
         } else if (calculationMethod == CalculationMethod.ROMME) {
             result = getDateRomme(gregorianDate);
+        } else if (calculationMethod == CalculationMethod.VON_MADLER) {
+            result = getDateVonMadler(gregorianDate);
         } else {
             throw new IllegalArgumentException("Can't convert date " + gregorianDate + " using method " + calculationMethod);
         }
@@ -136,7 +144,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // The year in the French date: Gregorian year at 1st vendemiaire -
         // 1792. This is the number of years elapsed since the French calendar
         // had been started.
-        int frenchYear = g1stVendemiaire.get(Calendar.YEAR) - frenchEraBegin.get(Calendar.YEAR) + 1;
+        int frenchYear = g1stVendemiaire.get(Calendar.YEAR) - frenchEraYearOne.get(Calendar.YEAR) + 1;
         // The DAY_OF_YEAR in the French year, from 0 to 365. This is the
         // number of days elapsed 1stVendemiaire of the French year and the
         // given timestamp.
@@ -204,6 +212,41 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     }
 
     /**
+     * @param gregorianDate
+     * @return The French date corresponding to the Gregorian calendar date,
+     * using the 128 method to determine the leap years:
+     * Years divisible by 4 but not divisible by 128 are leap years.
+     */
+    private FrenchRevolutionaryCalendarDate getDateVonMadler(Calendar gregorianDate) {
+        // Time elapsed between the end of the French calendar and the given
+        // date. We have to include the daylight savings offset, because back in
+        // 1792-1811,
+        // daylight savings time wasn't being used. If we don't take into
+        // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
+        // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
+        // not
+        // the desired result.
+        long numMillisSinceBeginningOfFrenchEra = gregorianDate.getTimeInMillis() - frenchEraYearZero.getTimeInMillis() + gregorianDate.get(Calendar.DST_OFFSET);
+        // The number of days since day 0 of the French calendar (1791-09-23).
+        int numDaysSinceFrenchEraBegin = (int) (numMillisSinceBeginningOfFrenchEra / NUM_MILLISECONDS_IN_DAY);
+
+        int frenchYear = (int) ((numDaysSinceFrenchEraBegin + 1) / VON_MADLER_DAYS_IN_YEAR);
+        // The number of days since 1791-09-23 to 1 Vendemiaire of the given year.
+        int numDaysFromFrenchEraBeginTo1VendemiaireThisYear = 365 * frenchYear + (frenchYear - 1) / 4 - (frenchYear - 1) / 128;
+        // The number of the day in the given year, starting from 0
+        int frenchDayOfYear = numDaysSinceFrenchEraBegin - numDaysFromFrenchEraBeginTo1VendemiaireThisYear;
+
+        // If the day was negative, this means it's in the previous year.  Rewind the year and recalculate the
+        // day of the year.
+        if (frenchDayOfYear < 0) {
+            frenchYear--;
+            numDaysFromFrenchEraBeginTo1VendemiaireThisYear = 365 * frenchYear + (frenchYear - 1) / 4 - (frenchYear - 1) / 128;
+            frenchDayOfYear = numDaysSinceFrenchEraBegin - numDaysFromFrenchEraBeginTo1VendemiaireThisYear;
+        }
+        return getFrenchDate(frenchYear, frenchDayOfYear);
+    }
+
+    /**
      * @param frenchYear
      *            the year in the French calendar
      * @param numberDaysInFrenchYear
@@ -244,7 +287,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
     }
 
     /**
-     * @param year
+     * @param gyear
      *            a year in the Gregorian calendar
      * @return the day, in the Gregorian calendar, of the autumn equinox (at
      *         midnight) in the current timezone, for the given year.
