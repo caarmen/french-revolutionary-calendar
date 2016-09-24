@@ -177,7 +177,7 @@ public class FrenchRevolutionaryCalendar { // NO_UCD (use default)
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
         // not
         // the desired result.
-        long numMillisSinceEndOfFrenchEra = gregorianDate.getTimeInMillis() - frenchEraEnd.getTimeInMillis() + gregorianDate.get(Calendar.DST_OFFSET);
+        long numMillisSinceEndOfFrenchEra = gregorianDate.getTimeInMillis() + gregorianDate.get(Calendar.DST_OFFSET) - frenchEraEnd.getTimeInMillis() - frenchEraEnd.get(Calendar.DST_OFFSET);
 
         // The Romme method applies the same
         // rules (mostly) of the Gregorian calendar to the French calendar.

@@ -8,13 +8,13 @@
   <parent>
     <groupId>ca.rmen</groupId>
     <artifactId>parent</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
   </parent>
 
   <groupId>ca.rmen</groupId>
   <artifactId>lib-french-revolutionary-calendar</artifactId>
   <packaging>jar</packaging>
-  <version>1.5.0</version>
+  <version>1.5.1</version>
   <name>lib-french-revolutionary-calendar</name>
   <url>http://rmen.ca</url>
 
