@@ -92,7 +92,7 @@ class FrenchRevolutionaryCalendarLabelsFR extends FrenchRevolutionaryCalendarLab
             new String[] { "Vertu", "Génie", "Travail", "Opinion", "Récompenses", "Révolution" }, };
 
     public static final String[] DAILY_OBJECT_TYPES = new String[]{
-            "La plante", "L'animal", "L'outil", "Le minérale", "Le concept"
+            "La plante", "L'animal", "L'outil", "Le minéral", "Le concept"
     };
 
     FrenchRevolutionaryCalendarLabelsFR() {
