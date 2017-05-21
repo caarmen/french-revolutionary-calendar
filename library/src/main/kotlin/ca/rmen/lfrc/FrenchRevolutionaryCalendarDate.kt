@@ -29,23 +29,22 @@ import ca.rmen.lfrc.i18n.FrenchRevolutionaryCalendarLabels
  * A timestamp in the french revolutionary calendar. Months are from 1 to 13,
  * days are from 1 to 30, hours are from 1 to 10, minutes and seconds are from 1
  * to 100.
-
  * @author calvarez
  */
 /**
  * @param year The year in the French Revolutionary Calendar.
- * *
+ *
  * @param month The month in the year, from 1 to 13
- * *
+ *
  * @param dayOfMonth The day in the month, from 1 to 30.
- * *
+ *
  * @param hour The hour of the day, from 0 to 9.
- * *
+ *
  * @param minute The minute of the hour, from 0 to 100.
- * *
+ *
  * @param second The second of the minute, from 0 to 100.
  */
-data class FrenchRevolutionaryCalendarDate (
+data class FrenchRevolutionaryCalendarDate(
         @JvmField val locale: Locale,
         @JvmField val year: Int,
         @JvmField val month: Int,
@@ -55,50 +54,36 @@ data class FrenchRevolutionaryCalendarDate (
         @JvmField val second: Int) : Serializable {
 
     /**
-     * @return a number from 1 to 10.
+     * A number from 1 to 10.
      */
-    val dayInWeek: Int
-        get() = (dayOfMonth - 1) % 10 + 1
+    val dayInWeek: Int = (dayOfMonth - 1) % 10 + 1
 
     /**
-     * @return a number from 1 to 3.
+     * A number from 1 to 3.
      */
-    val weekInMonth: Int
-        get() = (dayOfMonth - 1) / 10 + 1
+    val weekInMonth: Int = (dayOfMonth - 1) / 10 + 1
+
+    val monthName: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getMonthName(month)
+
+    val weekdayName: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getWeekdayName(dayInWeek)
+
+    /**
+     * The name of this day in the year, in French
+     */
+    val dayOfYear: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDayOfYear(month, dayOfMonth)
 
     val objectType: DailyObjectType
-        get() {
-            if (month == 13)
-                return DailyObjectType.CONCEPT
-            else if (dayOfMonth % 10 == 0)
-                return DailyObjectType.TOOL
-            else if (dayOfMonth % 5 == 0)
-                return DailyObjectType.ANIMAL
-            else if (month == 4)
-                return DailyObjectType.MINERAL
-            else
-                return DailyObjectType.PLANT
-        }
 
     val objectTypeName: String
-        get() {
-            val type = objectType
-            return FrenchRevolutionaryCalendarLabels.getInstance(locale).getDailyObjectTypeName(type)
+
+    init {
+        when {
+            month == 13 -> objectType = DailyObjectType.CONCEPT
+            dayOfMonth % 10 == 0 -> objectType = DailyObjectType.TOOL
+            dayOfMonth %5 == 0 -> objectType = DailyObjectType.ANIMAL
+            month == 4 -> objectType = DailyObjectType.MINERAL
+            else -> objectType = DailyObjectType.PLANT
         }
-
-    val monthName: String
-        get() = FrenchRevolutionaryCalendarLabels.getInstance(locale).getMonthName(month)
-
-    // The day of the week starting from 1:
-    val weekdayName: String
-        get() {
-            val dayInWeek = (dayOfMonth - 1) % 10 + 1
-            return FrenchRevolutionaryCalendarLabels.getInstance(locale).getWeekdayName(dayInWeek)
-        }
-
-    /**
-     * @return the name of this day in the year, in French
-     */
-    val dayOfYear: String
-        get() = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDayOfYear(month, dayOfMonth)
+        objectTypeName = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDailyObjectTypeName(objectType)
+    }
 }

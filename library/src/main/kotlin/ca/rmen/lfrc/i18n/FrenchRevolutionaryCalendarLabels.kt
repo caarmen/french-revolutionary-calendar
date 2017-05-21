@@ -33,7 +33,7 @@ import java.util.Locale
 
  * @author calvarez
  */
-abstract class FrenchRevolutionaryCalendarLabels internal constructor(private val weekdays: Array<String>, private val months: Array<String>, private val daysOfYear: Array<Array<String>>, private val dailyObjectTypes: Array<String>) {
+internal abstract class FrenchRevolutionaryCalendarLabels internal constructor(private val weekdays: Array<String>, private val months: Array<String>, private val daysOfYear: Array<Array<String>>, private val dailyObjectTypes: Array<String>) {
 
     /**
      * @param weekday from 1 to 10.
@@ -80,12 +80,14 @@ abstract class FrenchRevolutionaryCalendarLabels internal constructor(private va
             val language = locale.language
             var result: FrenchRevolutionaryCalendarLabels? = instances[language]
             if (result != null) return result
-            if (Locale.ENGLISH.language == language) result = FrenchRevolutionaryCalendarLabelsEN()
-            else if ("es" == language) result = FrenchRevolutionaryCalendarLabelsES()
-            else if ("ca" == language) result = FrenchRevolutionaryCalendarLabelsCA()
-            else if ("it" == language) result = FrenchRevolutionaryCalendarLabelsIT()
-            else if ("de" == language) result = FrenchRevolutionaryCalendarLabelsDE()
-            else result = FrenchRevolutionaryCalendarLabelsFR()
+            when (language) {
+                Locale.ENGLISH.language -> result = FrenchRevolutionaryCalendarLabelsEN()
+                "es" -> result = FrenchRevolutionaryCalendarLabelsES()
+                "ca" -> result = FrenchRevolutionaryCalendarLabelsCA()
+                "it" -> result = FrenchRevolutionaryCalendarLabelsIT()
+                "de" -> result = FrenchRevolutionaryCalendarLabelsDE()
+                else -> result = FrenchRevolutionaryCalendarLabelsFR()
+            }
             instances.put(language, result)
             return result
 

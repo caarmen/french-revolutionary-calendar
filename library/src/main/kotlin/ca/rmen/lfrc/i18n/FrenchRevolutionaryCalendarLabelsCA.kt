@@ -28,7 +28,7 @@ package ca.rmen.lfrc.i18n
 
  * @author calvarez
  */
-class FrenchRevolutionaryCalendarLabelsCA : FrenchRevolutionaryCalendarLabels(FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS, FrenchRevolutionaryCalendarLabelsCA.MONTHS, FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR, FrenchRevolutionaryCalendarLabelsCA.DAILY_OBJECT_TYPES) {
+internal class FrenchRevolutionaryCalendarLabelsCA : FrenchRevolutionaryCalendarLabels(FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS, FrenchRevolutionaryCalendarLabelsCA.MONTHS, FrenchRevolutionaryCalendarLabelsCA.DAY_OF_YEAR, FrenchRevolutionaryCalendarLabelsCA.DAILY_OBJECT_TYPES) {
     companion object {
 
         @JvmField
