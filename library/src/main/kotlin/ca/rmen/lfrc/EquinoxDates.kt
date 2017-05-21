@@ -49,7 +49,10 @@ internal object EquinoxDates {
         // If this is out of the small range of dates we initially load, but
         // in the larger range of dates we can support, load the larger range
         // of dates
-        if (year < 2010 && year >= -1000 || year > 2100 && year <= 3000) loadFullEquinoxList()
+        if (year in -1000..0) loadEquinoxDates0()
+        else if (year in 1..1000) loadEquinoxDates1000()
+        else if (year in 1001..2000) loadEquinoxDates2000()
+        else if (year in 2001..3000) loadEquinoxDates3000()
         return equinoxDates[year]
     }
 
@@ -173,10 +176,7 @@ internal object EquinoxDates {
         addEquinoxDate(2100, "2100-09-22 22:03:05 GMT")
     }
 
-    /**
-     * By default, to use less memory, this class only loads equinox dates for 2010 to 2100. This method load dates from 1000 BC to 3000 CE.
-     */
-    private fun loadFullEquinoxList() {
+    private fun loadEquinoxDates0() {
         addEquinoxDate(-1000, "-1000-09-23 14:19:43 GMT")
         addEquinoxDate(-999, "-999-09-23 20:10:04 GMT")
         addEquinoxDate(-998, "-998-09-24 02:00:21 GMT")
@@ -1178,6 +1178,8 @@ internal object EquinoxDates {
         addEquinoxDate(-2, "-002-09-23 17:08:47 GMT")
         addEquinoxDate(-1, "-001-09-23 22:58:02 GMT")
         addEquinoxDate(0, "0000-09-23 04:46:03 GMT")
+    }
+    private fun loadEquinoxDates1000() {
         addEquinoxDate(1, "0001-09-23 10:35:37 GMT")
         addEquinoxDate(2, "0002-09-23 16:27:05 GMT")
         addEquinoxDate(3, "0003-09-23 22:20:32 GMT")
@@ -2178,6 +2180,8 @@ internal object EquinoxDates {
         addEquinoxDate(998, "0998-09-23 02:23:24 GMT")
         addEquinoxDate(999, "0999-09-23 08:09:40 GMT")
         addEquinoxDate(1000, "1000-09-23 13:58:19 GMT")
+    }
+    private fun loadEquinoxDates2000() {
         addEquinoxDate(1001, "1001-09-23 19:45:21 GMT")
         addEquinoxDate(1002, "1002-09-24 01:23:16 GMT")
         addEquinoxDate(1003, "1003-09-24 07:17:53 GMT")
@@ -3178,6 +3182,8 @@ internal object EquinoxDates {
         addEquinoxDate(1998, "1998-09-23 05:38:36 GMT")
         addEquinoxDate(1999, "1999-09-23 11:32:38 GMT")
         addEquinoxDate(2000, "2000-09-22 17:28:54 GMT")
+    }
+    private fun loadEquinoxDates3000() {
         addEquinoxDate(2001, "2001-09-22 23:05:35 GMT")
         addEquinoxDate(2002, "2002-09-23 04:56:39 GMT")
         addEquinoxDate(2003, "2003-09-23 10:48:05 GMT")
@@ -4178,7 +4184,6 @@ internal object EquinoxDates {
         addEquinoxDate(2998, "2998-09-22 03:04:11 GMT")
         addEquinoxDate(2999, "2999-09-22 09:02:13 GMT")
         addEquinoxDate(3000, "3000-09-22 14:49:17 GMT")
-
     }
 
 }
