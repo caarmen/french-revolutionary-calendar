@@ -79,8 +79,7 @@
         <version>${kotlin.version}</version>
         <executions>
           <execution>
-            <id>compile</id>
-            <phase>compile</phase>
+            <phase>process-sources</phase>
             <goals>
               <goal>compile</goal>
             </goals>
@@ -98,6 +97,52 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- The proguard plugin removes all kotlin stdlib classes we don't use: -->
+      <plugin>
+        <groupId>com.github.wvengen</groupId>
+        <artifactId>proguard-maven-plugin</artifactId>
+        <version>2.0.14</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>proguard</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <proguardInclude>${basedir}/proguard.conf</proguardInclude>
+          <libs>
+            <lib>${java.home}/lib/rt.jar</lib>
+          </libs>
+        </configuration>
+      </plugin>
+
+      <!-- The assembly plugin creates a jar containing our code plus the minimum, relocated kotlin stdlib classes -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>assembly-single</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
       </plugin>
     </plugins>
   </build>
