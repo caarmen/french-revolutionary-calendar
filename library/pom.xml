@@ -99,6 +99,31 @@
         </executions>
       </plugin>
 
+      <!-- The shade plugin renames kotlin packages: -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml
+              </dependencyReducedPomLocation>
+              <relocations>
+                <relocation>
+                  <pattern>kotlin</pattern>
+                  <shadedPattern>relocated.ca.rmen.lfrc.kotlin</shadedPattern>
+                </relocation>
+              </relocations>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- The proguard plugin removes all kotlin stdlib classes we don't use: -->
       <plugin>
         <groupId>com.github.wvengen</groupId>
