@@ -8,7 +8,7 @@
   <groupId>ca.rmen</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.6.0</version>
+  <version>1.6.1</version>
   <name>french-revolutionary-calendar</name>
   <url>http://rmen.ca</url>
   <prerequisites>
@@ -101,18 +101,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <!-- We'll provide our own packaging: ignore the jar plugin -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
-
     </plugins>
   </build>
   <reporting>
