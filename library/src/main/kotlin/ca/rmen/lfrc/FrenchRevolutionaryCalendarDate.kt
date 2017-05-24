@@ -68,7 +68,7 @@ data class FrenchRevolutionaryCalendarDate(
     val weekdayName: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getWeekdayName(dayInWeek)
 
     /**
-     * The name of this day in the year, in French
+     * The name of this day in the year, in the given locale.
      */
     val dayOfYear: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDayOfYear(month, dayOfMonth)
 
