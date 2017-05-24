@@ -12,7 +12,6 @@
     <version>1.6.0</version>
   </parent>
 
-  <groupId>ca.rmen</groupId>
   <artifactId>lib-french-revolutionary-calendar</artifactId>
   <packaging>jar</packaging>
   <version>1.6.0</version>
