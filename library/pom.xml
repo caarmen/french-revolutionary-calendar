@@ -55,15 +55,16 @@
         </executions>
       </plugin>
 
+      <!-- The dokka plugin allows us to generate javadoc from our kotlin sources: -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <version>0.9.13</version>
         <executions>
           <execution>
-            <id>attach-javadocs</id>
+            <phase>pre-site</phase>
             <goals>
-              <goal>jar</goal>
+              <goal>dokka</goal>
             </goals>
           </execution>
         </executions>

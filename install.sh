@@ -1,7 +1,9 @@
 #!/bin/sh
 logprefix=$0
+set -e
 echo "$logprefix: Rebuilding project..."
-mvn clean package site site:stage
+mvn clean package org.jetbrains.dokka:dokka-maven-plugin:javadocJar
+mvn site site:stage
 echo "$logprefix: Project rebuilt".
 echo "$logprefix: Extracting version from pom file..."
 version=`mvn -q exec:exec -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive`
