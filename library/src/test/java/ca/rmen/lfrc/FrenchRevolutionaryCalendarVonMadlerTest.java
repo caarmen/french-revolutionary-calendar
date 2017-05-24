@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (c) 2012-2014 Carmen Alvarez
+ * Copyright (c) 2012-2017 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,8 +21,8 @@ package ca.rmen.lfrc;
 
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
+import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,16 +30,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import static org.junit.Assert.fail;
+
 /**
  * Validate date conversions between the Gregorian and French Revolutionary Calendars, using the von Madler method.
  */
 public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionaryCalendarTest {
-    public FrenchRevolutionaryCalendarVonMadlerTest(String name) throws FileNotFoundException {
-        super(name, CalculationMethod.VON_MADLER);
+    public FrenchRevolutionaryCalendarVonMadlerTest() {
+        calculationMethod = CalculationMethod.VON_MADLER;
     }
 
     // https://en.wikipedia.org/wiki/French_Republican_Calendar#Converting_from_the_Gregorian_Calendar
     // The date of the Republican New Year remains the same (23 September) in the Gregorian calendar every year from 129 to 256 (AD 1920–2047)
+    @Test
     public void testNewYears() throws ParseException {
         FrenchRevolutionaryCalendar frCal = new FrenchRevolutionaryCalendar(Locale.ENGLISH, CalculationMethod.VON_MADLER);
         int frenchYear = 129;
@@ -98,14 +101,17 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
         return gregDate;
     }
 
+    @Test
     public void testFrenchDate1() throws Exception {
         validateDates("2016-09-23", "225-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
     }
 
+    @Test
     public void testFrenchDate2() throws Exception {
         validateDates("1792-09-22", "1-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
     }
 
+    @Test
     public void testFrenchDate3() throws Exception {
         validateDates("1791-09-24", "0-01-02", "Duodi", "Vendémiaire", "Safran", "Saffron", DailyObjectType.PLANT, 1);
     }
