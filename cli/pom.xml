@@ -70,4 +70,10 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <site>
+      <id>${project.artifactId}-site</id>
+      <url>${project.baseUri}</url>
+    </site>
+  </distributionManagement>
 </project>
