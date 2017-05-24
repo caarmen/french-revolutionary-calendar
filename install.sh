@@ -10,5 +10,4 @@ version=`mvn -q exec:exec -Dexec.executable="echo" -Dexec.args='${project.versio
 echo "$logprefix: Version is $version."
 echo "$logprefix: Installing to local maven repository..."
 mvn install:install-file -DpomFile=publish.pom -Dfile=library/target/lib-french-revolutionary-calendar-$version.jar -Djavadoc=library/target/lib-french-revolutionary-calendar-$version-javadoc.jar -Dsources=library/target/lib-french-revolutionary-calendar-$version-sources.jar
-mvn install:install-file -Dversion=$version -Dfile=library/target/lib-french-revolutionary-calendar-$version-core.jar -Dclassifier=core -DgroupId=ca.rmen -DartifactId=lib-french-revolutionary-calendar
 echo "$logprefix: Done."
