@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (c) 2012-2014 Carmen Alvarez
+ * Copyright (c) 2012-2017 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,46 +22,52 @@ package ca.rmen.lfrc;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import junit.framework.TestCase;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
+import org.junit.Before;
+import org.junit.Test;
 
-public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+public abstract class FrenchRevolutionaryCalendarTest {
 
     private final SimpleDateFormat simpleDateFormat;
     private final SimpleDateFormat simpleDateTimeFormat;
-    private final FrenchRevolutionaryCalendar frcalFR;
-    private final FrenchRevolutionaryCalendar frcalEN;
+    private FrenchRevolutionaryCalendar frcalFR;
+    private FrenchRevolutionaryCalendar frcalEN;
+    CalculationMethod calculationMethod;
 
-    public FrenchRevolutionaryCalendarTest(String name, CalculationMethod calculationMethod) throws FileNotFoundException {
-        super(name);
-        System.out.println(name);
-        frcalFR = new FrenchRevolutionaryCalendar(Locale.FRENCH, calculationMethod);
-        frcalEN = new FrenchRevolutionaryCalendar(Locale.ENGLISH, calculationMethod);
+    FrenchRevolutionaryCalendarTest() {
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
 
-    protected void setUp() {
+    @Before
+    public void setUp() {
+        frcalFR = new FrenchRevolutionaryCalendar(Locale.FRENCH, calculationMethod);
+        frcalEN = new FrenchRevolutionaryCalendar(Locale.ENGLISH, calculationMethod);
     }
 
-    protected void tearDown() {
-    }
-
+    @Test
     public void testFrenchDate() throws Exception {
         validateDates("1796-08-04", "4-11-17", "Septidi", "Thermidor", "Lin", "Flax", DailyObjectType.PLANT, 2);
     }
 
+    @Test
     public void testFrenchTime() throws Exception {
         validateDateAndTime("1796-08-04 11:30:30", "4-11-17 04:79:51", "Septidi", "Thermidor", "Lin", "Flax", DailyObjectType.PLANT, 2);
+        validateDateAndTime("1796-08-07 11:30:30", "4-11-20 04:79:51", "Décadi", "Thermidor", "Écluse", "Lock", DailyObjectType.TOOL, 2);
+        validateTime(11, 30, 30, 4, 79, 51);
     }
 
-    protected void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
-                                 String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
+    void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
+                       String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
         // Test in French
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(frcalFR, gregorian, simpleDateFormat);
         String actualFrench = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.dayOfMonth);
@@ -75,8 +81,8 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
         validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearEN, expectedDailyObjectType, expectedWeekInMonth);
     }
 
-    protected void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
-                                       String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
+    void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
+                             String expectedDayOfYearEN, DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) throws ParseException {
         // Test in French
         FrenchRevolutionaryCalendarDate fcd = getFrenchDate(frcalFR, gregorian, simpleDateTimeFormat);
         String actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
@@ -88,6 +94,21 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
         actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
         assertEquals(expectedFrench, actualFrench);
         validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearEN, expectedDailyObjectType, expectedWeekInMonth);
+    }
+
+    void validateTime(int gregorianHour, int gregorianMinute, int gregorianSecond, int expectedDecimalHour, int expectedDecimalMinute, int expectedDecimalSecond) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 0);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, gregorianHour);
+        calendar.set(Calendar.MINUTE, gregorianMinute);
+        calendar.set(Calendar.SECOND, gregorianSecond);
+        calendar.set(Calendar.MILLISECOND, 0);
+        int[] actualDecimalTime = FrenchRevolutionaryCalendar.getFrenchTime(calendar);
+        assertEquals(expectedDecimalHour, actualDecimalTime[0]);
+        assertEquals(expectedDecimalMinute, actualDecimalTime[1]);
+        assertEquals(expectedDecimalSecond, actualDecimalTime[2]);
     }
 
     private void validateDateAttributes(FrenchRevolutionaryCalendarDate actual, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear,
@@ -104,8 +125,7 @@ public abstract class FrenchRevolutionaryCalendarTest extends TestCase {
         Date testDate = parser.parse(gregorian);
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(testDate);
-        FrenchRevolutionaryCalendarDate fcd = frcal.getDate(cal);
-        return fcd;
+        return frcal.getDate(cal);
     }
 
     private void validateSerialization(FrenchRevolutionaryCalendarDate expected) {

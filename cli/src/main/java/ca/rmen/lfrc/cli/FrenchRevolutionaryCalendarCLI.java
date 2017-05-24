@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (c) 2014 Carmen Alvarez
+ * Copyright (c) 2014-2017 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,7 +31,6 @@ import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -39,7 +38,7 @@ import java.util.Locale;
 /**
  * Command-line interface to the French Revolutionary Calendar library functions.
  */
-public class FrenchRevolutionaryCalendarCLI {
+class FrenchRevolutionaryCalendarCLI {
 
     private static final String FORMAT_FULL_TZ = "yyyy-MM-dd HH:mm:ss z";
     private static final String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss";
@@ -103,7 +102,9 @@ public class FrenchRevolutionaryCalendarCLI {
                 FrenchRevolutionaryCalendarDate frenchDate = frc.getDate(cal);
                 System.err.println("Parsing using format " + format);
                 return format(frenchDate, outputFormat);
-            } catch (ParseException e) {}
+            } catch (ParseException e) {
+                // We'll print an error just below
+            }
         }
         System.err.println("Unrecognized Gregorian date format: " + gregorianDateString + ". Supported formats are:");
         for (String format : FORMATS)
@@ -112,16 +113,9 @@ public class FrenchRevolutionaryCalendarCLI {
     }
 
     /**
-     * @return true if the given calendar only has time components. In other words, it is in day 0 of year 0.
-     */
-    static boolean isTimeOnly(GregorianCalendar cal) {
-        return cal.get(Calendar.YEAR) == 0 && cal.get(Calendar.MONTH) == 0 && cal.get(Calendar.DAY_OF_MONTH) == 0;
-    }
-
-    /**
      * @return a String representation of the given French date, using the given format.
      */
-    static String format(FrenchRevolutionaryCalendarDate frenchDate, String outputFormat) {
+    private static String format(FrenchRevolutionaryCalendarDate frenchDate, String outputFormat) {
         String result = outputFormat;
         result = result.replaceAll("%y", String.format("%d", frenchDate.year));
         result = result.replaceAll("%MMMM", frenchDate.getMonthName());

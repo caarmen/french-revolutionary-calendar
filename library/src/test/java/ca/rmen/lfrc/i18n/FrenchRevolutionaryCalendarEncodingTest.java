@@ -1,7 +1,7 @@
 /*
  * French Revolutionary Calendar Library
  * 
- * Copyright (c) 2012-2014 Carmen Alvarez
+ * Copyright (c) 2012-2017 Carmen Alvarez
  * 
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,49 +19,47 @@
  */
 package ca.rmen.lfrc.i18n;
 
-import java.io.FileNotFoundException;
+import org.junit.Test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-/**
+/**:
  * These tests make sure that the weekday names and month names are encoded in UTF-8
  * 
  */
-public class FrenchRevolutionaryCalendarEncodingTest extends TestCase {
+public class FrenchRevolutionaryCalendarEncodingTest {
 
-    public FrenchRevolutionaryCalendarEncodingTest(String name) throws FileNotFoundException {
-        super(name);
-        System.out.println(name);
-    }
-
-    protected void setUp() {}
-
-    protected void tearDown() {}
-
+    @Test
     public void testEncodingWeekday() {
         assertEquals("D\u00e9cadi", FrenchRevolutionaryCalendarLabelsFR.WEEKDAYS[9]);
     }
 
+    @Test
     public void testEncodingMonth() {
         assertEquals("Niv\u00f4se", FrenchRevolutionaryCalendarLabelsFR.MONTHS[3]);
     }
 
+    @Test
     public void testEncodingDayOfYear() {
         assertEquals("M\u00e9l\u00e8ze", FrenchRevolutionaryCalendarLabelsFR.DAY_OF_YEAR[6][16]);
     }
 
+    @Test
     public void testEncodingES() {
         assertEquals("Azafr\u00e1n", FrenchRevolutionaryCalendarLabelsES.DAY_OF_YEAR[0][1]);
     }
 
+    @Test
     public void testEncodingCA() {
         assertEquals("Niv\u00f3s", FrenchRevolutionaryCalendarLabelsCA.MONTHS[3]);
     }
 
+    @Test
     public void testEncodingIT() {
         assertEquals("Primid\u00ec", FrenchRevolutionaryCalendarLabelsIT.WEEKDAYS[0]);
     }
 
+    @Test
     public void testEncodingDE() {
         assertEquals("Gei\u00dfblatt", FrenchRevolutionaryCalendarLabelsDE.DAY_OF_YEAR[8][22]);
     }
