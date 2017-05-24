@@ -9,12 +9,12 @@
   <parent>
     <groupId>ca.rmen</groupId>
     <artifactId>parent</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
   </parent>
 
   <artifactId>lib-french-revolutionary-calendar</artifactId>
   <packaging>jar</packaging>
-  <version>1.6.0</version>
+  <version>1.6.1</version>
   <name>lib-french-revolutionary-calendar</name>
   <url>http://rmen.ca</url>
 
@@ -118,6 +118,14 @@
                   <shadedPattern>relocated.ca.rmen.lfrc.kotlin</shadedPattern>
                 </relocation>
               </relocations>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.*</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
