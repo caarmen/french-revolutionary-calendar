@@ -49,9 +49,23 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
         List<String> failures = new ArrayList<String>();
         for (int gregorianYear = 1920; gregorianYear <= 2047; gregorianYear++) {
 
-            // Verify 1er Vendemiaire: New Year
-            GregorianCalendar gregDate = getGregorianDate(gregorianYear, 9, 23);
+            // Verify 2 Vendemiaire
+            GregorianCalendar gregDate = getGregorianDate(gregorianYear, 9, 24);
             FrenchRevolutionaryCalendarDate fcd = frCal.getDate(gregDate);
+            if (fcd.year != frenchYear || fcd.month != 1 || fcd.dayOfMonth != 2) {
+                failures.add("Expected " + frenchYear + "-01-02 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
+            }
+
+            // Verify 9 Vendemiaire
+            gregDate = getGregorianDate(gregorianYear, 10, 1);
+            fcd = frCal.getDate(gregDate);
+            if (fcd.year != frenchYear || fcd.month != 1 || fcd.dayOfMonth != 9) {
+                failures.add("Expected " + frenchYear + "-01-09 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
+            }
+
+            // Verify 1er Vendemiaire: New Year
+            gregDate = getGregorianDate(gregorianYear, 9, 23);
+            fcd = frCal.getDate(gregDate);
             if (fcd.year != frenchYear || fcd.month != 1 || fcd.dayOfMonth != 1){
                 failures.add("Expected " + frenchYear + "-01-01 but got " + fcd.year + "-" + fcd.month + "-" + fcd.dayOfMonth);
             }

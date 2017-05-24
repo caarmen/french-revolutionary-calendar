@@ -22,6 +22,7 @@ package ca.rmen.lfrc;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -61,6 +62,8 @@ public abstract class FrenchRevolutionaryCalendarTest {
     @Test
     public void testFrenchTime() throws Exception {
         validateDateAndTime("1796-08-04 11:30:30", "4-11-17 04:79:51", "Septidi", "Thermidor", "Lin", "Flax", DailyObjectType.PLANT, 2);
+        validateDateAndTime("1796-08-07 11:30:30", "4-11-20 04:79:51", "Décadi", "Thermidor", "Écluse", "Lock", DailyObjectType.TOOL, 2);
+        validateTime(11, 30, 30, 4, 79, 51);
     }
 
     void validateDates(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
@@ -91,6 +94,21 @@ public abstract class FrenchRevolutionaryCalendarTest {
         actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
         assertEquals(expectedFrench, actualFrench);
         validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearEN, expectedDailyObjectType, expectedWeekInMonth);
+    }
+
+    void validateTime(int gregorianHour, int gregorianMinute, int gregorianSecond, int expectedDecimalHour, int expectedDecimalMinute, int expectedDecimalSecond) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 0);
+        calendar.set(Calendar.MONTH, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, gregorianHour);
+        calendar.set(Calendar.MINUTE, gregorianMinute);
+        calendar.set(Calendar.SECOND, gregorianSecond);
+        calendar.set(Calendar.MILLISECOND, 0);
+        int[] actualDecimalTime = FrenchRevolutionaryCalendar.getFrenchTime(calendar);
+        assertEquals(expectedDecimalHour, actualDecimalTime[0]);
+        assertEquals(expectedDecimalMinute, actualDecimalTime[1]);
+        assertEquals(expectedDecimalSecond, actualDecimalTime[2]);
     }
 
     private void validateDateAttributes(FrenchRevolutionaryCalendarDate actual, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear,
