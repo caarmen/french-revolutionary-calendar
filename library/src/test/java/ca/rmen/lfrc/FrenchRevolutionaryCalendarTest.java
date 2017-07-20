@@ -26,6 +26,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.CalculationMethod;
 import ca.rmen.lfrc.FrenchRevolutionaryCalendar.DailyObjectType;
@@ -33,12 +35,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public abstract class FrenchRevolutionaryCalendarTest {
 
     private final SimpleDateFormat simpleDateFormat;
     private final SimpleDateFormat simpleDateTimeFormat;
+    private final Pattern frenchDatePattern;
+    private final Pattern frenchDateTimePattern;
     private FrenchRevolutionaryCalendar frcalFR;
     private FrenchRevolutionaryCalendar frcalEN;
     CalculationMethod calculationMethod;
@@ -46,6 +51,8 @@ public abstract class FrenchRevolutionaryCalendarTest {
     FrenchRevolutionaryCalendarTest() {
         simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         simpleDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        frenchDatePattern = Pattern.compile("(-?\\d*)-(\\d*)-(\\d*)");
+        frenchDateTimePattern = Pattern.compile("(-?\\d*)-(\\d*)-(\\d*) (\\d*):(\\d*):(\\d*)");
     }
 
     @Before
@@ -79,6 +86,11 @@ public abstract class FrenchRevolutionaryCalendarTest {
         actualFrench = String.format("%d-%02d-%02d", fcd.year, fcd.month, fcd.dayOfMonth);
         assertEquals(expectedFrench, actualFrench);
         validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearEN, expectedDailyObjectType, expectedWeekInMonth);
+
+        // Test reverse conversion
+        GregorianCalendar reverseExpectedGregorian = parseGregorianDate(gregorian, simpleDateFormat);
+        GregorianCalendar reverseActualGregorian = getGregorianDate(frcalEN, Locale.ENGLISH, expectedFrench, frenchDatePattern);
+        validateGregorianDates(reverseExpectedGregorian, reverseActualGregorian);
     }
 
     void validateDateAndTime(String gregorian, String expectedFrench, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYearFR,
@@ -94,6 +106,11 @@ public abstract class FrenchRevolutionaryCalendarTest {
         actualFrench = String.format("%d-%02d-%02d %02d:%02d:%02d", fcd.year, fcd.month, fcd.dayOfMonth, fcd.hour, fcd.minute, fcd.second);
         assertEquals(expectedFrench, actualFrench);
         validateDateAttributes(fcd, expectedDayOfWeek, expectedMonthName, expectedDayOfYearEN, expectedDailyObjectType, expectedWeekInMonth);
+
+        // Test reverse conversion
+        GregorianCalendar reverseExpectedGregorian = parseGregorianDate(gregorian, simpleDateTimeFormat);
+        GregorianCalendar reverseActualGregorian = getGregorianDate(frcalEN, Locale.ENGLISH, expectedFrench, frenchDateTimePattern);
+        validateGregorianDates(reverseExpectedGregorian, reverseActualGregorian);
     }
 
     void validateTime(int gregorianHour, int gregorianMinute, int gregorianSecond, int expectedDecimalHour, int expectedDecimalMinute, int expectedDecimalSecond) {
@@ -109,23 +126,67 @@ public abstract class FrenchRevolutionaryCalendarTest {
         assertEquals(expectedDecimalHour, actualDecimalTime[0]);
         assertEquals(expectedDecimalMinute, actualDecimalTime[1]);
         assertEquals(expectedDecimalSecond, actualDecimalTime[2]);
+
+        FrenchRevolutionaryCalendarDate frenchDate = new FrenchRevolutionaryCalendarDate(Locale.US,
+                225, 1, 1,
+                expectedDecimalHour, expectedDecimalMinute, expectedDecimalSecond);
+        int[] actualReverseGregorianTime = FrenchRevolutionaryCalendar.get24HourTime(frenchDate);
+        assertEquals(gregorianHour, actualReverseGregorianTime[0]);
+        assertEquals(gregorianMinute, actualReverseGregorianTime[1]);
+        assertTrue(Math.abs(gregorianSecond - actualReverseGregorianTime[2]) <= 1);
     }
 
     private void validateDateAttributes(FrenchRevolutionaryCalendarDate actual, String expectedDayOfWeek, String expectedMonthName, String expectedDayOfYear,
                                         DailyObjectType expectedDailyObjectType, int expectedWeekInMonth) {
         assertEquals(expectedDayOfWeek, actual.getWeekdayName());
         assertEquals(expectedMonthName, actual.getMonthName());
-        assertEquals(expectedDayOfYear, actual.getDayOfYear());
+        assertEquals(expectedDayOfYear, actual.getObjectOfTheDay());
         assertEquals(expectedDailyObjectType, actual.getObjectType());
         assertEquals(expectedWeekInMonth, actual.getWeekInMonth());
         validateSerialization(actual);
     }
 
-    private FrenchRevolutionaryCalendarDate getFrenchDate(FrenchRevolutionaryCalendar frcal, String gregorian, SimpleDateFormat parser) throws ParseException {
+    private GregorianCalendar parseGregorianDate(String gregorian, SimpleDateFormat parser) throws ParseException {
         Date testDate = parser.parse(gregorian);
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(testDate);
+        return cal;
+    }
+
+    private FrenchRevolutionaryCalendarDate getFrenchDate(FrenchRevolutionaryCalendar frcal, String gregorian, SimpleDateFormat parser) throws ParseException {
+        GregorianCalendar cal = parseGregorianDate(gregorian, parser);
         return frcal.getDate(cal);
+    }
+
+    private GregorianCalendar getGregorianDate(FrenchRevolutionaryCalendar frcal, Locale locale, String french, Pattern pattern) throws ParseException {
+        Matcher matcher = pattern.matcher(french);
+        if (matcher.find()) {
+            int year, month, day;
+            int hour = 0, minute = 0, second = 0;
+
+            if (matcher.groupCount() == 3 || matcher.groupCount() == 6) {
+                year = Integer.valueOf(matcher.group(1));
+                month = Integer.valueOf(matcher.group(2));
+                day = Integer.valueOf(matcher.group(3));
+                if (matcher.groupCount() == 6) {
+                    hour = Integer.valueOf(matcher.group(4));
+                    minute = Integer.valueOf(matcher.group(5));
+                    second= Integer.valueOf(matcher.group(6));
+                }
+                FrenchRevolutionaryCalendarDate frenchDate = new FrenchRevolutionaryCalendarDate(locale, year, month, day, hour, minute, second);
+                return frcal.getDate(frenchDate);
+            }
+        }
+        throw new ParseException("Can't parse french date " + french, 0);
+    }
+
+    private void validateGregorianDates(GregorianCalendar expected, GregorianCalendar actual) {
+        assertEquals("Wrong year", expected.get(Calendar.YEAR), actual.get(Calendar.YEAR));
+        assertEquals("Wrong month", expected.get(Calendar.MONTH), actual.get(Calendar.MONTH));
+        assertEquals("Wrong day",expected.get(Calendar.DAY_OF_MONTH), actual.get(Calendar.DAY_OF_MONTH));
+        assertEquals("Wrong hour", expected.get(Calendar.HOUR_OF_DAY), actual.get(Calendar.HOUR_OF_DAY));
+        assertEquals("Wrong minute", expected.get(Calendar.MINUTE), actual.get(Calendar.MINUTE));
+        assertTrue("Wrong second", Math.abs(expected.get(Calendar.SECOND) - actual.get(Calendar.SECOND)) <= 1);
     }
 
     private void validateSerialization(FrenchRevolutionaryCalendarDate expected) {

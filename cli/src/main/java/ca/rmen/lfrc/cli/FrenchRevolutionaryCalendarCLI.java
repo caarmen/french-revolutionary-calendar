@@ -149,7 +149,7 @@ class FrenchRevolutionaryCalendarCLI {
         result = result.replaceAll("%E", frenchDate.getWeekdayName());
         result = result.replaceAll("%W", String.format("%d", frenchDate.getWeekInMonth()));
         result = result.replaceAll("%T", frenchDate.getObjectTypeName());
-        result = result.replaceAll("%DDDD", frenchDate.getDayOfYear());
+        result = result.replaceAll("%DDDD", frenchDate.getObjectOfTheDay());
         return result;
     }
 
