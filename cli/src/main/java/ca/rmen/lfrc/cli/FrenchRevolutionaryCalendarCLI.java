@@ -29,23 +29,29 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.time.ZonedDateTime;
 
 /**
  * Command-line interface to the French Revolutionary Calendar library functions.
  */
 class FrenchRevolutionaryCalendarCLI {
 
-    private static final String FORMAT_FULL_TZ = "yyyy-MM-dd HH:mm:ss z";
+    private static final String FORMAT_FULL_TZ_OFFSET = "yyyy-MM-dd HH:mm:ss Z";
+    private static final String FORMAT_FULL_TZ_NAME = "yyyy-MM-dd HH:mm:ss z";
     private static final String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss";
-    private static final String FORMAT_ISO = "yyyy-MM-dd'T'HH:mm:ssZ";
+    private static final String FORMAT_ISO_TZ_OFFSET = "yyyy-MM-dd'T'HH:mm:ssZ";
+    private static final String FORMAT_ISO_TZ_NAME= "yyyy-MM-dd'T'HH:mm:ssz";
     private static final String FORMAT_DATE_ONLY = "yyyy-MM-dd";
     private static final String FORMAT_TIME_ONLY = "HH:mm:ss";
-    private static final String[] FORMATS = { FORMAT_ISO, FORMAT_FULL_TZ, FORMAT_FULL, FORMAT_DATE_ONLY, FORMAT_TIME_ONLY };
+    private static final String[] FORMATS = {FORMAT_ISO_TZ_OFFSET, FORMAT_ISO_TZ_NAME, FORMAT_FULL_TZ_OFFSET, FORMAT_FULL_TZ_NAME, FORMAT_FULL, FORMAT_DATE_ONLY, FORMAT_TIME_ONLY };
 
     public static void main(String[] args) {
         if (args.length == 0) usage();
@@ -93,16 +99,28 @@ class FrenchRevolutionaryCalendarCLI {
             try {
                 // If we were given only the Gregorian time, only display the French time.
                 if (FORMAT_TIME_ONLY.equals(format)) outputFormat = "%H:%mm:%ss";
-                SimpleDateFormat sdf = new SimpleDateFormat(format);
-                Date date = sdf.parse(gregorianDateString);
-                GregorianCalendar cal = new GregorianCalendar();
-                cal.setTimeZone(sdf.getTimeZone());
-                cal.setTime(date);
+
+                final GregorianCalendar cal;
+                DateTimeFormatter tdf = DateTimeFormatter.ofPattern(format);//.withOffsetParsed();
+                if (FORMAT_FULL.equals(format)) {
+                    LocalDateTime date = LocalDateTime.parse(gregorianDateString, tdf);
+                    cal = new GregorianCalendar(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth(), date.getHour(), date.getMinute(), date.getSecond());
+                } else if (FORMAT_TIME_ONLY.equals(format)) {
+                    LocalTime time = LocalTime.parse(gregorianDateString, tdf);
+                    cal = GregorianCalendar.from(ZonedDateTime.of(LocalDate.now(), time, ZoneId.systemDefault()));
+                } else if (FORMAT_DATE_ONLY.equals(format)) {
+                    LocalDate date = LocalDate.parse(gregorianDateString, tdf);
+                    cal = new GregorianCalendar(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth());
+                } else {
+                    ZonedDateTime date = ZonedDateTime.parse(gregorianDateString, tdf);
+                    cal = GregorianCalendar.from(date);
+                }
+
                 FrenchRevolutionaryCalendar frc = new FrenchRevolutionaryCalendar(Locale.getDefault(), method);
                 FrenchRevolutionaryCalendarDate frenchDate = frc.getDate(cal);
                 System.err.println("Parsing using format " + format);
                 return format(frenchDate, outputFormat);
-            } catch (ParseException e) {
+            } catch (DateTimeParseException e) {
                 // We'll print an error just below
             }
         }

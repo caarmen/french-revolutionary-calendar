@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.Locale
+import java.util.TimeZone
 
 /**
 
@@ -99,7 +100,7 @@ class FrenchRevolutionaryCalendar(
     private fun getDateEquinox(gregorianDate: Calendar): FrenchRevolutionaryCalendarDate {
 
         val gyear = gregorianDate[Calendar.YEAR]
-        val gAutumnEquinox = getAutumnEquinox(gyear) ?: throw IllegalArgumentException("Date not supported: $gregorianDate")
+        val gAutumnEquinox = getAutumnEquinox(gyear, gregorianDate.timeZone) ?: throw IllegalArgumentException("Date not supported: $gregorianDate")
 
         // Determine the first day of the French year.
         var g1stVendemiaire : Calendar?
@@ -107,7 +108,7 @@ class FrenchRevolutionaryCalendar(
         // Case 1, date from January to September, use the equinox date from
         // last year
         if (gregorianDate < gAutumnEquinox) {
-            g1stVendemiaire = getAutumnEquinox(gyear - 1)
+            g1stVendemiaire = getAutumnEquinox(gyear - 1, gregorianDate.timeZone)
             if (g1stVendemiaire == null) throw IllegalArgumentException("Date not supported: $gregorianDate")
         } else {
 
@@ -171,7 +172,7 @@ class FrenchRevolutionaryCalendar(
         val fakeFrenchTimestamp = fakeEndFrenchEraTimestamp + numMillisSinceEndOfFrenchEra
 
         // Create a calendar object for the French date
-        val fakeFrenchDate = Calendar.getInstance()
+        val fakeFrenchDate = Calendar.getInstance(gregorianDate.timeZone)
         fakeFrenchDate.timeInMillis = fakeFrenchTimestamp
 
         // Extract the year, and day in year from the French date.
@@ -281,14 +282,15 @@ class FrenchRevolutionaryCalendar(
 
         /**
          * @param gyear a year in the Gregorian calendar
+         * @param timeZone the returned calendar object will have this time zone
          *
-         * @return the day, in the Gregorian calendar, of the autumn equinox (at midnight) in the current timezone, for the given year, if the given year is between -1000 and 3000 inclusive. Returns null otherwise.
+         * @return the day, in the Gregorian calendar, of the autumn equinox (at midnight) in the given timezone, for the given year, if the given year is between -1000 and 3000 inclusive. Returns null otherwise.
          */
-        private fun getAutumnEquinox(gyear: Int): Calendar? {
+        private fun getAutumnEquinox(gyear: Int, timeZone: TimeZone): Calendar? {
             // Create a date object for the autumn equinox date (at midnight) in the
-            // current timezone.
+            // given timezone.
             val gAutumnEquinoxDay = EquinoxDates.getAutumnEquinox(gyear) ?: return null
-            val gAutumnEquinox = Calendar.getInstance()
+            val gAutumnEquinox = Calendar.getInstance(timeZone)
             gAutumnEquinox.set(Calendar.YEAR, gyear)
             gAutumnEquinox.set(Calendar.MONTH, EQUINOX_MONTH)
             gAutumnEquinox.set(Calendar.DAY_OF_MONTH, gAutumnEquinoxDay)
