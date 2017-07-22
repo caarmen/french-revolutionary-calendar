@@ -45,6 +45,7 @@ class FrenchRevolutionaryCalendar(
         PLANT, ANIMAL, TOOL, MINERAL, CONCEPT
     }
 
+    private val utcTimeZone = TimeZone.getTimeZone("UTC")
     private val frenchEraYearZero = Calendar.getInstance()
     private val frenchEraYearOne = Calendar.getInstance()
     private var frenchEraEnd = Calendar.getInstance()
@@ -63,11 +64,10 @@ class FrenchRevolutionaryCalendar(
         } catch (e: ParseException) {
             debug("Error reading French epoch " + FRENCH_ERA_YEAR_ONE, e)
         }
-
     }
 
     /**
-     * @param gregorianDate
+     * @param gregorianDate a date in the Gregorian calendar
      *
      * @return the French date corresponding to the Gregorian calendar date.
      */
@@ -91,7 +91,29 @@ class FrenchRevolutionaryCalendar(
     }
 
     /**
-     * @param gregorianDate
+     * @param frenchDate a date in the French Revolutionary Calendar
+     *
+     * @return the Gregorian calendar date, in the default time zone, corresponding to the given French Revolutionary Calendar date
+     */
+    fun getDate(frenchDate: FrenchRevolutionaryCalendarDate): GregorianCalendar? {
+        val result = when {
+            calculationMethod == CalculationMethod.EQUINOX || frenchDate.year in 1..19 -> getDateEquinox(frenchDate)
+            calculationMethod == CalculationMethod.ROMME -> getDateRomme(frenchDate)
+            calculationMethod == CalculationMethod.VON_MADLER -> getDateVonMadler(frenchDate)
+            else ->
+                throw IllegalArgumentException("Can't convert date $frenchDate using method $calculationMethod")
+        } ?: return null
+
+        val timeInDay = get24HourTime(frenchDate)
+        result[Calendar.HOUR_OF_DAY] = timeInDay[0]
+        result[Calendar.MINUTE] = timeInDay[1]
+        result[Calendar.SECOND] = timeInDay[2]
+        result[Calendar.MILLISECOND] = 0
+        return result
+    }
+
+    /**
+     * @param gregorianDate a date in the Gregorian calendar
      *
      * @return The French date corresponding to the Gregorian calendar date,
      *         using the equinox method to determine the Gregorian date for the
@@ -103,23 +125,24 @@ class FrenchRevolutionaryCalendar(
         val gAutumnEquinox = getAutumnEquinox(gyear, gregorianDate.timeZone) ?: throw IllegalArgumentException("Date not supported: $gregorianDate")
 
         // Determine the first day of the French year.
-        var g1stVendemiaire : Calendar?
+        var g1stVendemiaire: Calendar?
         g1stVendemiaire = gAutumnEquinox
         // Case 1, date from January to September, use the equinox date from
         // last year
         if (gregorianDate < gAutumnEquinox) {
             g1stVendemiaire = getAutumnEquinox(gyear - 1, gregorianDate.timeZone)
             if (g1stVendemiaire == null) throw IllegalArgumentException("Date not supported: $gregorianDate")
-        } else {
-
         }
         // Case 2, date from September to December
+        else {
+
+        }
         // The year in the French date: Gregorian year at 1st vendemiaire -
         // 1792. This is the number of years elapsed since the French calendar
         // had been started.
         val frenchYear = g1stVendemiaire[Calendar.YEAR] - frenchEraYearOne[Calendar.YEAR] + 1
         // The DAY_OF_YEAR in the French year, from 0 to 365. This is the
-        // number of days elapsed 1stVendemiaire of the French year and the
+        // number of days elapsed between 1stVendemiaire of the French year and the
         // given timestamp.
 
         // Take into account DST offset difference between the equinox and today.
@@ -129,9 +152,38 @@ class FrenchRevolutionaryCalendar(
         // If we don't take into account the DST difference, we'll think that now is OVER 68 days since the equinox,
         // but it's really just under 68 days.
         val numberDaysInFrenchYear = ((gregorianDate.timeInMillis + gregorianDate[Calendar.DST_OFFSET]
-                - g1stVendemiaire.timeInMillis - g1stVendemiaire[Calendar.DST_OFFSET].toLong()) / NUM_MILLISECONDS_IN_DAY).toInt()
+                - g1stVendemiaire.timeInMillis - g1stVendemiaire[Calendar.DST_OFFSET]) / NUM_MILLISECONDS_IN_DAY).toInt()
         // Create and return the French calendar object.
-        return getFrenchDate(frenchYear, numberDaysInFrenchYear)
+        return createFrenchDate(frenchYear, numberDaysInFrenchYear)
+    }
+
+    /**
+     * @param frenchDate a date in the French Revolutionary Calendar
+     *
+     * @return The Gregorian calendar date corresponding to the French date,
+     *         using the equinox method to determine the Gregorian date for the
+     *         first day of the French year.
+     */
+    private fun getDateEquinox(frenchDate: FrenchRevolutionaryCalendarDate): GregorianCalendar? {
+        // Start out with a Gregorian calendar object in 1792 (year 1 of the French calendar)
+        val result = Calendar.getInstance(utcTimeZone) as GregorianCalendar
+        result.timeInMillis = frenchEraYearOne.inUtc().timeInMillis
+
+        // Move the calendar object forward by the number of years in our French date.
+        // Now our Gregorian calendar is in the right year.
+        result[Calendar.YEAR] += frenchDate.year - 1
+
+        // Set our Gregorian calendar to the date of the autumn equinox, in its given year
+        val equinoxDay = getAutumnEquinox(result[Calendar.YEAR], utcTimeZone) ?: return null
+        result.timeInMillis = equinoxDay.timeInMillis
+
+        // Determine how much time passed, in the French date, since the beginning of the year (which is the autumn equinox)
+        val millisSinceYearStart = (frenchDate.dayInYear - 1) * NUM_MILLISECONDS_IN_DAY
+
+        // Add this passed time to our Gregorian calendar result
+        result.timeInMillis += millisSinceYearStart
+        result.timeInMillis -= result[Calendar.DST_OFFSET] - equinoxDay[Calendar.DST_OFFSET]
+        return result.inDefaultTimeZone() as GregorianCalendar
     }
 
     /**
@@ -148,8 +200,7 @@ class FrenchRevolutionaryCalendar(
         // daylight savings time wasn't being used. If we don't take into
         // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
-        // not
-        // the desired result.
+        // not the desired result.
         val numMillisSinceEndOfFrenchEra = gregorianDate.timeInMillis + gregorianDate[Calendar.DST_OFFSET] - frenchEraEnd!!.timeInMillis - frenchEraEnd!![Calendar.DST_OFFSET].toLong()
 
         // The Romme method applies the same
@@ -180,15 +231,43 @@ class FrenchRevolutionaryCalendar(
         val frenchDayInYear = fakeFrenchDate[Calendar.DAY_OF_YEAR]
 
         // Create and return a French calendar object.
-        return getFrenchDate(frenchYear - 2000, frenchDayInYear - 1)
+        return createFrenchDate(frenchYear - 2000, frenchDayInYear - 1)
+    }
+
+    /**
+     * @param frenchDate a date in the French Revolutionary Calendar
+     *
+     * @return The Gregorian calendar date, in the UTC timezone, corresponding to the French date,
+     *         using the Romme method to determine the Gregorian date for the
+     *         first day of the French year.
+     */
+    private fun getDateRomme(frenchDate: FrenchRevolutionaryCalendarDate): GregorianCalendar {
+        // Create a fake calendar object (fake because this is not really a
+        // Gregorian date), corresponding to the end of the French calendar era.
+        // This was in the French year 20. Since in the Gregorian year 20, there
+        // were no leap years yet, we add 2000 to the year, so that the
+        // Gregorian calendar implementation can handle the leap years.
+        val fakeEndFrenchEraEndCalendar = createGregorianDateUtc(2020, 0, 1)
+
+        // Create a fake calendar object for the given French date
+        val fakeFrenchCalendar = createGregorianDateUtc(2000 + frenchDate.year, 0, 1)
+        fakeFrenchCalendar[Calendar.DAY_OF_YEAR] = frenchDate.dayInYear
+
+        // Determine how much time passed since the end of the French calendar (its year 20, Gregorian year 1811) and the given French date
+        val numMillisSinceFrenchEraEnd = fakeFrenchCalendar.timeInMillis + fakeFrenchCalendar[Calendar.DST_OFFSET] - fakeEndFrenchEraEndCalendar.timeInMillis - fakeEndFrenchEraEndCalendar[Calendar.DST_OFFSET]
+
+        // Create the Gregorian calendar object starting with 1811 and adding this time passed
+        val resultUtc = Calendar.getInstance(utcTimeZone) as GregorianCalendar
+        resultUtc.timeInMillis = frenchEraEnd.inUtc().timeInMillis + numMillisSinceFrenchEraEnd
+        return resultUtc.inDefaultTimeZone() as GregorianCalendar
     }
 
     /**
      * @param gregorianDate
      *
      * @return The French date corresponding to the Gregorian calendar date,
-     * using the 128 method to determine the leap years:
-     * Years divisible by 4 but not divisible by 128 are leap years.
+     *         using the 128 method to determine the leap years:
+     *         Years divisible by 4 but not divisible by 128 are leap years.
      */
     private fun getDateVonMadler(gregorianDate: Calendar): FrenchRevolutionaryCalendarDate {
         // Time elapsed between the end of the French calendar and the given
@@ -197,8 +276,7 @@ class FrenchRevolutionaryCalendar(
         // daylight savings time wasn't being used. If we don't take into
         // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
-        // not
-        // the desired result.
+        // not the desired result.
         val numMillisSinceBeginningOfFrenchEra = gregorianDate.timeInMillis - frenchEraYearZero!!.timeInMillis + gregorianDate[Calendar.DST_OFFSET]
         // The number of days since day 0 of the French calendar (1791-09-23).
         val numDaysSinceFrenchEraBegin = (numMillisSinceBeginningOfFrenchEra / NUM_MILLISECONDS_IN_DAY).toInt()
@@ -216,20 +294,38 @@ class FrenchRevolutionaryCalendar(
             numDaysFromFrenchEraBeginTo1VendemiaireThisYear = 365 * frenchYear + (frenchYear - 1) / 4 - (frenchYear - 1) / 128
             frenchDayOfYear = numDaysSinceFrenchEraBegin - numDaysFromFrenchEraBeginTo1VendemiaireThisYear
         }
-        return getFrenchDate(frenchYear, frenchDayOfYear)
+        return createFrenchDate(frenchYear, frenchDayOfYear)
     }
 
     /**
-     * @param frenchYear
-     *            the year in the French calendar
+     * @param frenchDate a date in the French Revolutionary Calendar
      *
-     * @param numberDaysInFrenchYear
-     *            number of days since 1st Vendemiare of the given year,
-     *            starting with 0.
+     * @return The Gregorian calendar date corresponding to the French date,
+     *         using the 128 method to determine the leap years:
+     *         Years divisible by 4 but not divisible by 128 are leap years.
+     */
+    private fun getDateVonMadler(frenchDate: FrenchRevolutionaryCalendarDate): GregorianCalendar {
+        // The number of days from day 0 of the French calendar (1791-09-23) to 1 Vendemiaire of the given year.
+        val numDaysFromFrenchEraBeginTo1VendemiaireThisYear = frenchDate.year * 365 + (frenchDate.year - 1) / 4 - (frenchDate.year - 1) / 128
+
+        // The number of days from day 0 of the French calendar (1791-09-23), to the given French date.
+        val numDaysSinceFrenchEraBegin = numDaysFromFrenchEraBeginTo1VendemiaireThisYear + frenchDate.dayInYear - 1
+
+        // The number of milliseconds from day 0 of the French calendar (1791-09-23), to the given French date.
+        val numMillisSinceBeginningOfFrenchEra = numDaysSinceFrenchEraBegin * NUM_MILLISECONDS_IN_DAY
+
+        val resultUtc = Calendar.getInstance(utcTimeZone) as GregorianCalendar
+        resultUtc.timeInMillis = numMillisSinceBeginningOfFrenchEra + frenchEraYearZero.inUtc().timeInMillis
+        return resultUtc.inDefaultTimeZone() as GregorianCalendar
+    }
+
+    /**
+     * @param frenchYear the year in the French calendar
+     * @param numberDaysInFrenchYear  number of days since 1st Vendemiare of the given year, starting with 0.
      *
      * @return A French calendar object for the given French day.
      */
-    private fun getFrenchDate(frenchYear: Int, numberDaysInFrenchYear: Int): FrenchRevolutionaryCalendarDate {
+    private fun createFrenchDate(frenchYear: Int, numberDaysInFrenchYear: Int): FrenchRevolutionaryCalendarDate {
         // Find the month in the French year, starting from 0.
         val numberMonthInFrenchYear = numberDaysInFrenchYear / 30
 
@@ -239,6 +335,50 @@ class FrenchRevolutionaryCalendar(
         // Create and return the French calendar object.
         return FrenchRevolutionaryCalendarDate(locale, frenchYear, numberMonthInFrenchYear + 1,
                 numberDaysInFrenchMonth + 1, 0, 0, 0)
+    }
+
+    /**
+     * @param year the year in the Gregorian calendar
+     * @param month the month in the Gregorian calendar, starting from 0
+     * @param day the day in the month, in the Gregorian calendar
+     *
+     * @return a Gregorian calendar, in the UTC time zone, for the given year, month, and day
+     */
+    private fun createGregorianDateUtc(year: Int, month: Int, day: Int): GregorianCalendar {
+        val result = Calendar.getInstance(utcTimeZone) as GregorianCalendar
+        result[Calendar.YEAR] = year
+        result[Calendar.MONTH] = month
+        result[Calendar.DAY_OF_MONTH] = day
+        result[Calendar.HOUR_OF_DAY] = 0
+        result[Calendar.MINUTE] = 0
+        result[Calendar.SECOND] = 0
+        result[Calendar.MILLISECOND] = 0
+        return result
+    }
+
+    private fun Calendar.inUtc(): Calendar {
+        return inTimeZone(utcTimeZone)
+    }
+
+    private fun Calendar.inDefaultTimeZone(): Calendar {
+        return inTimeZone(TimeZone.getDefault())
+    }
+
+    /**
+     * Create a Calendar with the given time zone, but with year, month, day, hour, minute, and seconds
+     * remaining the same as the original calendar. This is different from just setting the time zone field on a
+     * Calendar object. This extension creates a new Calendar with a different timeInMillis than the original.
+     */
+    private fun Calendar.inTimeZone(timeZone : TimeZone) : Calendar {
+        val result = GregorianCalendar(timeZone)
+        result[Calendar.YEAR] = get(Calendar.YEAR)
+        result[Calendar.MONTH] = get(Calendar.MONTH)
+        result[Calendar.DAY_OF_MONTH] = get(Calendar.DAY_OF_MONTH)
+        result[Calendar.HOUR_OF_DAY] = get(Calendar.HOUR_OF_DAY)
+        result[Calendar.MINUTE] = get(Calendar.MINUTE)
+        result[Calendar.SECOND] = get(Calendar.SECOND)
+        result[Calendar.MILLISECOND] = 0
+        return result
     }
 
     private fun debug(o: Any, t: Throwable?) {
@@ -259,8 +399,6 @@ class FrenchRevolutionaryCalendar(
         private val VON_MADLER_DAYS_IN_YEAR = 365 + 1.0 / 4 - 1.0 / 128
 
         /**
-         * @param gtime
-         *
          * @return a decimal representation of the time within this day. Returns
          *         three ints for hour, minutes, seconds, respectively. The hour is
          *         from 0 to 9, the minute is from 0 to 99, and the second is from
@@ -277,6 +415,25 @@ class FrenchRevolutionaryCalendar(
             val fmin = ((dayFraction * 10 - fhour) * 100).toInt()
             val fsec = ((dayFraction * 10 - (fhour + fmin.toFloat() / 100)) * 10000).toInt()
             return intArrayOf(fhour, fmin, fsec)
+        }
+
+        /**
+         * @return a triplet of the hour, minutes, and seconds of the time of the given date object.
+         *         Returns three ints for hour, minutes, seconds, respectively. The hour is
+         *         from 0 to 23, the minute is from 0 to 59, and the second is from
+         *         0 to 59.
+         */
+        @JvmStatic
+        fun get24HourTime(frenchDate: FrenchRevolutionaryCalendarDate): IntArray {
+            val fhour = frenchDate.hour
+            val fmin = frenchDate.minute
+            val fsec = frenchDate.second
+
+            val dayFraction = fhour.toFloat() / 10 + fmin.toFloat() / 1000 + fsec.toFloat() / 100000
+            val ghour = (dayFraction * 24).toInt()
+            val gmin = ((dayFraction * 24 - ghour) * 60).toInt()
+            val gsec = ((dayFraction * 24 - (ghour + gmin.toFloat() / 60)) * 3600).toInt()
+            return intArrayOf(ghour, gmin, gsec)
         }
 
 

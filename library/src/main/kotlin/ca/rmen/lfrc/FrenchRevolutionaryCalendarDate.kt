@@ -63,14 +63,19 @@ data class FrenchRevolutionaryCalendarDate(
      */
     val weekInMonth: Int = (dayOfMonth - 1) / 10 + 1
 
+    /**
+     * The number of days since the beginning of the year, starting with 1.
+     */
+    val dayInYear: Int = (month - 1) * 30 + dayOfMonth
+
     val monthName: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getMonthName(month)
 
     val weekdayName: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getWeekdayName(dayInWeek)
 
     /**
-     * The name of this day in the year, in the given locale.
+     * The name of the object of the day in the year, in the given locale.
      */
-    val dayOfYear: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDayOfYear(month, dayOfMonth)
+    val objectOfTheDay: String = FrenchRevolutionaryCalendarLabels.getInstance(locale).getDayOfYear(month, dayOfMonth)
 
     val objectType: DailyObjectType
 
