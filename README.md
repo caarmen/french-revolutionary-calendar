@@ -8,6 +8,8 @@ Also converts 24-hour time to decimal time.
 
 Reference: http://en.wikipedia.org/wiki/French_Republican_Calendar
 
+Library
+-------
 To use this in your project:
 
 Maven:
@@ -29,7 +31,7 @@ compile 'ca.rmen:lib-french-revolutionary-calendar:1.7.0'
 Usage:
 ```java
 FrenchRevolutionaryCalendar frc =
-    new FrenchRevolutionaryCalendar
+    new FrenchRevolutionaryCalendar(
             Locale.getDefault(),
             FrenchRevolutionaryCalendar.CalculationMethod.ROMME):
 
@@ -41,7 +43,8 @@ String text = "Today is " + frenchDate.getWeekdayName()
     + " " + frenchDate.getMonthName() + " " + frenchDate.year;
 ```
 
-----
+Command-line program
+--------------------
 A command-line program is available.
 
 Build it with: `mvn clean package`
