@@ -113,7 +113,7 @@ public abstract class FrenchRevolutionaryCalendarTest {
         validateGregorianDates(reverseExpectedGregorian, reverseActualGregorian);
     }
 
-    void validateTime(int gregorianHour, int gregorianMinute, int gregorianSecond, int expectedDecimalHour, int expectedDecimalMinute, int expectedDecimalSecond) {
+    private void validateTime(int gregorianHour, int gregorianMinute, int gregorianSecond, int expectedDecimalHour, int expectedDecimalMinute, int expectedDecimalSecond) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 0);
         calendar.set(Calendar.MONTH, 0);
