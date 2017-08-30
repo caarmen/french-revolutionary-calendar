@@ -86,6 +86,7 @@ internal abstract class FrenchRevolutionaryCalendarLabels internal constructor(p
                 "ca" -> result = FrenchRevolutionaryCalendarLabelsCA()
                 "it" -> result = FrenchRevolutionaryCalendarLabelsIT()
                 "de" -> result = FrenchRevolutionaryCalendarLabelsDE()
+				"eu" -> result = FrenchRevolutionaryCalendarLabelsEU()
                 else -> result = FrenchRevolutionaryCalendarLabelsFR()
             }
             instances.put(language, result)
