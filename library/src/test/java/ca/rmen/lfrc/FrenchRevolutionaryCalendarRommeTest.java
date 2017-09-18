@@ -58,12 +58,12 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
 
     @Test
     public void testFrenchDate7() throws Exception {
-        validateDates("1792-09-21", "0-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT, 1);
+        validateDates("1792-09-21", "0-13-06", "Sextidi", "Sansculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT, 1);
     }
 
     @Test
     public void testFrenchDate8() throws Exception {
-        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
+        validateDates("1791-09-21", "-1-13-05", "Quintidi", "Sansculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
     }
 
     @Test

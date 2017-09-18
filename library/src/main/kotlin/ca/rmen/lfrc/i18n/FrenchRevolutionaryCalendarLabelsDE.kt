@@ -63,7 +63,7 @@ internal class FrenchRevolutionaryCalendarLabelsDE : FrenchRevolutionaryCalendar
                 // Fructidor
                 arrayOf("Pflaume", "Hirse", "Stäubling", "Futtergerste", "Lachs", "Tuberose", "Wintergerste", "Hundswürger", "Lakritze", "Leiter", "Wassermelone", "Fenchel", "Berberitze", "Walnuss", "Forelle", "Zitrone", "Karde", "Kreuzdorn", "Studentenblume", "Tragkorb", "Heckenrose", "Haselnuss", "Hopfen", "Sorghum", "Krebs", "Pomeranze", "Goldraute", "Mais", "Eßkastanie", "Korb"),
 
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Tugenden", "Geistes", "Arbeit", "Meinung", "Belohnungen", "Revolution"))
 
         @JvmField

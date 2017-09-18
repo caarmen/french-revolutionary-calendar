@@ -57,7 +57,7 @@ internal class FrenchRevolutionaryCalendarLabelsEN : FrenchRevolutionaryCalendar
                 arrayOf("Spelt", "Common Mullein", "Melon", "Ryegrass", "Ram", "Horsetail", "Mugwort", "Safflower", "Blackberry", "Watering Can", "Switchgrass", "Common Glasswort", "Apricot", "Basil", "Ewe", "Marshmallow", "Flax", "Almond", "Gentian", "Lock", "Carline thistle", "Caper", "Lentil", "Inula", "Otter", "Myrtle", "Rapeseed", "Lupin", "Cotton", "Mill"),
                 // Fructidor
                 arrayOf("Plum", "Millet", "Puffball", "Six-row Barley", "Salmon", "Tuberose", "Winter Barley", "Apocynum", "Liquorice", "Ladder", "Watermelon", "Fennel", "Barberry", "Walnut", "Trout", "Lemon", "Teasel", "Buckthorn", "Mexican Marigold", "Harvesting basket", "Wild Rose", "Hazelnut", "Hops", "Sorghum", "Crayfish", "Bitter Orange", "Goldenrod", "Maize or Corn", "Sweet Chestnut", "Pack Basket"),
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Virtue", "Talent", "Labor", "Convictions", "Honors", "Revolution"))
 
         @JvmField

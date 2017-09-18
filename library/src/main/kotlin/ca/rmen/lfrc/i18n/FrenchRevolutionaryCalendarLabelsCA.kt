@@ -32,7 +32,7 @@ internal class FrenchRevolutionaryCalendarLabelsCA : FrenchRevolutionaryCalendar
     companion object {
 
         @JvmField
-        val MONTHS = arrayOf("Veremari", "Brumari", "Frimari", "Nivós", "Pluviós", "Ventós", "Germinal", "Floreal", "Pradal", "Messidor", "Termidor", "Fructidor", "Sanculotides")
+        val MONTHS = arrayOf("Veremari", "Brumari", "Frimari", "Nivós", "Pluviós", "Ventós", "Germinal", "Floreal", "Pradal", "Messidor", "Termidor", "Fructidor", "Sansculotides")
 
         @JvmField
         val DAY_OF_YEAR = arrayOf(
@@ -60,7 +60,7 @@ internal class FrenchRevolutionaryCalendarLabelsCA : FrenchRevolutionaryCalendar
                 arrayOf("Espelta", "Herba blenera", "Meló", "Zitzània", "Marrà", "Cua de cavall", "Artemísia", "Càrtam", "Móra", "Regadora", "Panical", "Salicorn", "Albercoc", "Alfàbrega", "Ovella", "Malví", "Lli", "Ametlla", "Genciana", "Resclosa", "Carlina", "Tàpera", "Llentia", "ínula", "Llúdria", "Murta", "Colza", "Tramús", "Cotó", "Molí"),
                 // Fructidor
                 arrayOf("Pruna", "Mill", "Pet de llop", "Ordi de dues carreres", "Salmó", "Nard", "Ordi de sis carreres", "Baladre", "Regalèssia", "Escala", "Síndria", "Fonoll", "Coralet", "Nou", "Truita de riu", "Llimona", "Cardó", "Rhamnus sp.", "Tagetes sp.", "Cove", "Englantina", "Avellana", "Llúpol", "Sorgo", "Cranc de riu", "Taronja agre", "Vara d'or", "Blat de moro", "Castanya", "Cistell"),
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Virtut", "Geni", "Treball", "Opinió", "Recompenses", "Revolució"))
 
         @JvmField
