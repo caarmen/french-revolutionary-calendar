@@ -3,7 +3,7 @@ Change Log
 
 1.7.1  *(2017-09-18)*
 --------------------
-* Fixed spelling of Sansculotides, to match the spelling in the [original decree] (http://1789-1799.blogspot.fr/2011/12/le-calendrier-republicain-14.html)
+* Fixed spelling of Sansculotides, to match the spelling in the [original decree](http://1789-1799.blogspot.fr/2011/12/le-calendrier-republicain-14.html)
 
 1.7.0  *(2017-07-33)*
 --------------------
