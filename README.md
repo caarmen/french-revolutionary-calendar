@@ -17,14 +17,14 @@ Maven:
 <dependency>
   <groupId>ca.rmen</groupId>
   <artifactId>lib-french-revolutionary-calendar</artifactId>
-  <version>1.7.0</version>
+  <version>1.7.1</version>
   <type>pom</type>
 </dependency>
 ```
 
 Gradle:
 ```
-compile 'ca.rmen:lib-french-revolutionary-calendar:1.7.0'
+compile 'ca.rmen:lib-french-revolutionary-calendar:1.7.1'
 
 ```
 
@@ -49,7 +49,7 @@ A command-line program is available.
 
 Build it with: `mvn clean package`
 
-Run it with `java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.0.jar`
+Run it with `java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.1.jar`
 
 With no arguments, it will print out a usage text.
 
@@ -57,12 +57,12 @@ Examples:
 
 Display the current time in the French Revolutionary Calendar:
 ```shell
-$java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.0.jar now
+$java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.1.jar now
 Quartidi, 04-Thermidor-225, 8:70:99, The plant:Ryegrass
 ```
 Display an arbitrary date in the French Revolutionary Calendar:
 ```
-$ java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.0.jar g2f 1998-06-10
+$ java -jar ./cli/target/french-revolutionary-calendar-cli-1.7.1.jar g2f 1998-06-10
 Parsing using format yyyy-MM-dd
 Duodi, 22-Prairial-206, 0:00:00, The plant:Camomile
 ```

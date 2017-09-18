@@ -214,7 +214,7 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
 
     @Test
     public void testFrenchDate19201921() throws Exception {
-        validateDates("1920-09-22", "128-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
+        validateDates("1920-09-22", "128-13-05", "Quintidi", "Sansculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
         validateDates("1920-09-23", "129-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
         validateDates("1920-10-23", "129-02-01", "Primidi", "Brumaire", "Pomme", "Apple", DailyObjectType.PLANT, 1);
         validateDates("1920-10-24", "129-02-02", "Duodi", "Brumaire", "Céleri", "Celery", DailyObjectType.PLANT, 1);
@@ -253,8 +253,8 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
         validateDates("1939-04-16", "147-07-26", "Sextidi", "Germinal", "Lilas", "Lilac", DailyObjectType.PLANT, 3);
         validateDates("1939-04-20", "147-07-30", "Décadi", "Germinal", "Greffoir", "Knife", DailyObjectType.TOOL, 3);
         validateDates("1939-04-21", "147-08-01", "Primidi", "Floréal", "Rose", "Rose", DailyObjectType.PLANT, 1);
-        validateDates("1939-09-18", "147-13-01", "Primidi", "Sanculotides", "Vertu", "Virtue", DailyObjectType.CONCEPT, 1);
-        validateDates("1939-09-22", "147-13-05", "Quintidi", "Sanculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
+        validateDates("1939-09-18", "147-13-01", "Primidi", "Sansculotides", "Vertu", "Virtue", DailyObjectType.CONCEPT, 1);
+        validateDates("1939-09-22", "147-13-05", "Quintidi", "Sansculotides", "Récompenses", "Honors", DailyObjectType.CONCEPT, 1);
         validateDates("1939-09-23", "148-01-01", "Primidi", "Vendémiaire", "Raisin", "Grape", DailyObjectType.PLANT, 1);
         validateDates("1939-10-23", "148-02-01", "Primidi", "Brumaire", "Pomme", "Apple", DailyObjectType.PLANT, 1);
         validateDates("1939-10-31", "148-02-09", "Nonidi", "Brumaire", "Alisier", "Chequer Tree", DailyObjectType.PLANT, 1);
@@ -319,8 +319,8 @@ public class FrenchRevolutionaryCalendarVonMadlerTest extends FrenchRevolutionar
     @Test
     public void testFrenchDate2016XXXX() throws Exception {
         validateDates("2016-08-18", "224-12-01", "Primidi", "Fructidor", "Prune", "Plum", DailyObjectType.PLANT, 1);
-        validateDates("2016-09-17", "224-13-01", "Primidi", "Sanculotides", "Vertu", "Virtue", DailyObjectType.CONCEPT, 1);
-        validateDates("2016-09-22", "224-13-06", "Sextidi", "Sanculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT, 1);
+        validateDates("2016-09-17", "224-13-01", "Primidi", "Sansculotides", "Vertu", "Virtue", DailyObjectType.CONCEPT, 1);
+        validateDates("2016-09-22", "224-13-06", "Sextidi", "Sansculotides", "Révolution", "Revolution", DailyObjectType.CONCEPT, 1);
         validateDates("2016-09-24", "225-01-02", "Duodi", "Vendémiaire", "Safran", "Saffron", DailyObjectType.PLANT, 1);
         validateDates("2016-10-29", "225-02-07", "Septidi", "Brumaire", "Figue", "Common Fig", DailyObjectType.PLANT, 1);
         validateDates("2016-10-30", "225-02-08", "Octidi", "Brumaire", "Scorsonère", "Black Salsify", DailyObjectType.PLANT, 1);

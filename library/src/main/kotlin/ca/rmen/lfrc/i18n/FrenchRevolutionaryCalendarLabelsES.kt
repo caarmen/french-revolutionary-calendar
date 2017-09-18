@@ -32,7 +32,7 @@ internal class FrenchRevolutionaryCalendarLabelsES : FrenchRevolutionaryCalendar
     companion object {
 
         @JvmField
-        val MONTHS = arrayOf("Vendimiario", "Brumario", "Frimario", "Nivoso", "Pluvioso", "Ventoso", "Germinal", "Floreal", "Pradial", "Mesidor", "Termidor", "Fructidor", "Sanculotides")
+        val MONTHS = arrayOf("Vendimiario", "Brumario", "Frimario", "Nivoso", "Pluvioso", "Ventoso", "Germinal", "Floreal", "Pradial", "Mesidor", "Termidor", "Fructidor", "Sansculotides")
 
         @JvmField
         val DAY_OF_YEAR = arrayOf(
@@ -62,7 +62,7 @@ internal class FrenchRevolutionaryCalendarLabelsES : FrenchRevolutionaryCalendar
                 // Fructidor
                 arrayOf("Ciruela", "Mijo", "Soplo de lobo", "Cebada", "Salmón", "Nardo", "Cebada", "Apocynaceae", "Regaliz", "Escala", "Sandía", "Hinojo", "Berberis", "Nuez", "Trucha", "Limón", "Cardencha", "Espino cerval", "Clavelón", "Cesto", "Escaramujo", "Avellana", "Lúpulo", "Sorgo", "Cangrejo de río", "Naranja amarga", "Vara de oro", "Maíz", "Castaña", "Cesta"),
 
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Virtud", "Talento", "Trabajo", "Opinión", "Recompensas", "Revolución"))
 
         @JvmField

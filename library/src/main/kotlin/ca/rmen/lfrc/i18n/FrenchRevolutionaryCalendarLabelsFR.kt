@@ -34,7 +34,7 @@ internal class FrenchRevolutionaryCalendarLabelsFR : FrenchRevolutionaryCalendar
         @JvmField
         val WEEKDAYS = arrayOf("Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi", "Sextidi", "Septidi", "Octidi", "Nonidi", "Décadi")
         @JvmField
-        val MONTHS = arrayOf("Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor", "Sanculotides")
+        val MONTHS = arrayOf("Vendémiaire", "Brumaire", "Frimaire", "Nivôse", "Pluviôse", "Ventôse", "Germinal", "Floréal", "Prairial", "Messidor", "Thermidor", "Fructidor", "Sansculotides")
 
         @JvmField
         val DAY_OF_YEAR = arrayOf(
@@ -62,7 +62,7 @@ internal class FrenchRevolutionaryCalendarLabelsFR : FrenchRevolutionaryCalendar
                 arrayOf("Épeautre", "Bouillon blanc", "Melon", "Ivraie", "Bélier", "Prêle", "Armoise", "Carthame", "Mûre", "Arrosoir", "Panic", "Salicorne", "Abricot", "Basilic", "Brebis", "Guimauve", "Lin", "Amande", "Gentiane", "Écluse", "Carline", "Câprier", "Lentille", "Aunée", "Loutre", "Myrte", "Colza", "Lupin", "Coton", "Moulin"),
                 // Fructidor
                 arrayOf("Prune", "Millet", "Lycoperdon", "Escourgeon", "Saumon", "Tubéreuse", "Sucrion", "Apocyn", "Réglisse", "Échelle", "Pastèque", "Fenouil", "Épine vinette", "Noix", "Truite", "Citron", "Cardère", "Nerprun", "Tagette", "Hotte", "Églantier", "Noisette", "Houblon", "Sorgho", "Écrevisse", "Bigarade", "Verge d'or", "Maïs", "Marron", "Panier"),
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Vertu", "Génie", "Travail", "Opinion", "Récompenses", "Révolution"))
 
         @JvmField

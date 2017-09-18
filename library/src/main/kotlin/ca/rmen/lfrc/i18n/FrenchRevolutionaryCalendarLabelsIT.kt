@@ -62,7 +62,7 @@ internal class FrenchRevolutionaryCalendarLabelsIT : FrenchRevolutionaryCalendar
                 arrayOf("Spelto", "Tasso barbasso", "Melone", "Loglio", "Ariete", "Equiseto", "Artemisia", "Cartamo", "Mora", "Annaffiatoio", "Eringio", "Salicornia", "Albicocca", "Basilico", "Pecora", "Altea", "Lino", "Mandorla", "Genziana", "Chiusa", "Carlina bianca", "Cappero", "Lenticchia", "Enula", "Lontra", "Mirto", "Colza", "Lupino", "Cotone", "Mulino"),
                 // Fructidor
                 arrayOf("Prugna", "Miglio", "Vescia", "Orzo maschio", "Salmone", "Tuberosa", "Orzo comune", "Apocino", "Liquirizia", "Scala", "Anguria", "Finocchio", "Crespino", "Noce", "Trota", "Limone", "Cardo", "Alaterno", "Garofano d'India", "Gerla", "Rosa canina", "Nocciola", "Luppolo", "Sorgo", "Gambero", "Arancio amaro", "Verga d'oro", "Granoturco", "Castagna", "Cesta"),
-                // Sanculotides
+                // Sansculotides
                 arrayOf("Virtù", "Genio", "Lavoro", "Opinione", "Ricompense", "Rivoluzione"))
 
         @JvmField
