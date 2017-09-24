@@ -63,4 +63,9 @@ public class FrenchRevolutionaryCalendarEncodingTest {
     public void testEncodingDE() {
         assertEquals("Gei\u00dfblatt", FrenchRevolutionaryCalendarLabelsDE.DAY_OF_YEAR[8][22]);
     }
+
+    @Test
+    public void testEncodingEU() {
+        assertEquals("Chal\u00e9mie", FrenchRevolutionaryCalendarLabelsEU.DAY_OF_YEAR[9][29]);
+    }
 }

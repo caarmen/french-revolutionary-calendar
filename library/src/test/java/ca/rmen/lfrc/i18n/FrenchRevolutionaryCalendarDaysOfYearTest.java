@@ -78,6 +78,15 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest {
     }
 
     @Test
+    public void testNumberOfDaysOfYearEU() {
+        assertEquals(FrenchRevolutionaryCalendarLabelsEU.DAY_OF_YEAR.length, 13);
+        for (int i = 0; i < 12; i++) {
+            assertEquals(FrenchRevolutionaryCalendarLabelsEU.DAY_OF_YEAR[i].length, 30);
+        }
+        assertEquals(FrenchRevolutionaryCalendarLabelsEU.DAY_OF_YEAR[12].length, 6);
+    }
+
+    @Test
     public void testDayOfYear1() {
         testDayOfYear(Locale.ENGLISH, 69, "Juniper");
     }
@@ -210,6 +219,11 @@ public class FrenchRevolutionaryCalendarDaysOfYearTest {
     @Test
     public void testNumberDailyObjectTypeCA() {
         assert(FrenchRevolutionaryCalendarLabelsCA.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
+    }
+
+    @Test
+    public void testNumberDailyObjectTypeEU() {
+        assert(FrenchRevolutionaryCalendarLabelsEU.DAILY_OBJECT_TYPES.length == FrenchRevolutionaryCalendar.DailyObjectType.values().length);
     }
 
     private void testDayOfYear(Locale locale, int dayOfYear, String expectedName) {
