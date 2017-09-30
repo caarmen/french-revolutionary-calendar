@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+1.8.0  *(2017-09-30)*
+--------------------
+* Added Basque translations contributed by Aitor Beriain.
+
 1.7.1  *(2017-09-18)*
 --------------------
 * Fixed spelling of Sansculotides, to match the spelling in the [original decree](http://1789-1799.blogspot.fr/2011/12/le-calendrier-republicain-14.html)
