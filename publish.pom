@@ -69,4 +69,18 @@ Reference: http://en.wikipedia.org/wiki/French_Republican_Calendar
 			</properties>
 		</developer>
 	</developers>
+	<contributors>
+		<contributor>
+			<name>Aitor Beriain</name>
+			<roles>
+				<role>Basque translation contributor</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<name>Benoît Lubek</name>
+			<roles>
+				<role>Additional code contributor</role>
+			</roles>
+		</contributor>
+	</contributors>
 </project>
