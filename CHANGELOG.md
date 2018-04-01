@@ -4,6 +4,7 @@ Change Log
 1.8.1  *(2018-04-01)*
 --------------------
 * Fixed VonMadler calculation errors in time zones other than Paris.
+* Fixed Romme calculations after 23:00 in some time zones.
 
 1.8.0  *(2017-09-30)*
 --------------------

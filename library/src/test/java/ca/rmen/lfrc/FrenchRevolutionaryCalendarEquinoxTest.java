@@ -72,6 +72,6 @@ public class FrenchRevolutionaryCalendarEquinoxTest extends FrenchRevolutionaryC
 
     @Test
     public void testFrenchDateAndTime2() throws Exception {
-        validateDateAndTime("2014-11-29 23:59:59", "223-03-08 09:99:98", "Octidi", "Frimaire", "Miel", "Honey", DailyObjectType.PLANT, 1);
+        validateDateAndTime("2014-11-29 23:59:59", "223-03-08 09:99:99", "Octidi", "Frimaire", "Miel", "Honey", DailyObjectType.PLANT, 1);
     }
 }

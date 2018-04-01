@@ -25,6 +25,7 @@ import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.math.roundToInt
 
 /**
 
@@ -201,7 +202,7 @@ class FrenchRevolutionaryCalendar(
         // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
         // not the desired result.
-        val numMillisSinceEndOfFrenchEra = gregorianDate.timeInMillis + gregorianDate[Calendar.DST_OFFSET] - frenchEraEnd!!.timeInMillis - frenchEraEnd!![Calendar.DST_OFFSET].toLong()
+        val numMillisSinceEndOfFrenchEra = gregorianDate.inUtc().timeInMillis - frenchEraEnd!!.inUtc().timeInMillis
 
         // The Romme method applies the same
         // rules (mostly) of the Gregorian calendar to the French calendar.
@@ -218,12 +219,13 @@ class FrenchRevolutionaryCalendar(
 
         // The end of the French calendar system was the beginning of the year
         // 20.
-        val fakeEndFrenchEraTimestamp = GregorianCalendar(2020, 0, 1).timeInMillis
+        val fakeEndFrenchEraTimestamp = createGregorianDateUtc(2020, 0, 1).timeInMillis
+
         // Add the elapsed time to the French date.
         val fakeFrenchTimestamp = fakeEndFrenchEraTimestamp + numMillisSinceEndOfFrenchEra
 
         // Create a calendar object for the French date
-        val fakeFrenchDate = Calendar.getInstance(gregorianDate.timeZone)
+        val fakeFrenchDate = Calendar.getInstance(utcTimeZone)
         fakeFrenchDate.timeInMillis = fakeFrenchTimestamp
 
         // Extract the year, and day in year from the French date.
@@ -413,7 +415,7 @@ class FrenchRevolutionaryCalendar(
             val dayFraction = ghour.toFloat() / 24 + gmin.toFloat() / 1440 + gsec.toFloat() / 86400
             val fhour = (dayFraction * 10).toInt()
             val fmin = ((dayFraction * 10 - fhour) * 100).toInt()
-            val fsec = ((dayFraction * 10 - (fhour + fmin.toFloat() / 100)) * 10000).toInt()
+            val fsec = ((dayFraction * 10 - (fhour + fmin.toFloat() / 100)) * 10000).roundToInt()
             return intArrayOf(fhour, fmin, fsec)
         }
 
@@ -432,7 +434,7 @@ class FrenchRevolutionaryCalendar(
             val dayFraction = fhour.toFloat() / 10 + fmin.toFloat() / 1000 + fsec.toFloat() / 100000
             val ghour = (dayFraction * 24).toInt()
             val gmin = ((dayFraction * 24 - ghour) * 60).toInt()
-            val gsec = ((dayFraction * 24 - (ghour + gmin.toFloat() / 60)) * 3600).toInt()
+            val gsec = ((dayFraction * 24 - (ghour + gmin.toFloat() / 60)) * 3600).roundToInt()
             return intArrayOf(ghour, gmin, gsec)
         }
 
