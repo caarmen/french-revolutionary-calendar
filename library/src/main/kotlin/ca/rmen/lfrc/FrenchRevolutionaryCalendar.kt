@@ -202,7 +202,7 @@ class FrenchRevolutionaryCalendar(
         // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
         // not the desired result.
-        val numMillisSinceEndOfFrenchEra = gregorianDate.timeInMillis + gregorianDate[Calendar.DST_OFFSET] - frenchEraEnd!!.timeInMillis - frenchEraEnd!![Calendar.DST_OFFSET].toLong()
+        val numMillisSinceEndOfFrenchEra = gregorianDate.inUtc().timeInMillis - frenchEraEnd!!.inUtc().timeInMillis
 
         // The Romme method applies the same
         // rules (mostly) of the Gregorian calendar to the French calendar.
@@ -219,12 +219,13 @@ class FrenchRevolutionaryCalendar(
 
         // The end of the French calendar system was the beginning of the year
         // 20.
-        val fakeEndFrenchEraTimestamp = GregorianCalendar(2020, 0, 1).timeInMillis
+        val fakeEndFrenchEraTimestamp = createGregorianDateUtc(2020, 0, 1).timeInMillis
+
         // Add the elapsed time to the French date.
         val fakeFrenchTimestamp = fakeEndFrenchEraTimestamp + numMillisSinceEndOfFrenchEra
 
         // Create a calendar object for the French date
-        val fakeFrenchDate = Calendar.getInstance(gregorianDate.timeZone)
+        val fakeFrenchDate = Calendar.getInstance(utcTimeZone)
         fakeFrenchDate.timeInMillis = fakeFrenchTimestamp
 
         // Extract the year, and day in year from the French date.
