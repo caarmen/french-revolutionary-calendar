@@ -277,7 +277,7 @@ class FrenchRevolutionaryCalendar(
         // account the offset, a calculation like 8/5/1996 00:00:00 - 8/5/1796
         // 00:00:00 will not return 200 years, but 200 years - 1 hour, which is
         // not the desired result.
-        val numMillisSinceBeginningOfFrenchEra = gregorianDate.timeInMillis - frenchEraYearZero!!.timeInMillis + gregorianDate[Calendar.DST_OFFSET]
+        val numMillisSinceBeginningOfFrenchEra = gregorianDate.inUtc().timeInMillis - frenchEraYearZero!!.inUtc().timeInMillis
         // The number of days since day 0 of the French calendar (1791-09-23).
         val numDaysSinceFrenchEraBegin = (numMillisSinceBeginningOfFrenchEra / NUM_MILLISECONDS_IN_DAY).toInt()
 
