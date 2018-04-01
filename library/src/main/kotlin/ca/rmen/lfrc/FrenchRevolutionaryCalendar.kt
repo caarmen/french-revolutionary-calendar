@@ -25,6 +25,7 @@ import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.math.roundToInt
 
 /**
 
@@ -413,7 +414,7 @@ class FrenchRevolutionaryCalendar(
             val dayFraction = ghour.toFloat() / 24 + gmin.toFloat() / 1440 + gsec.toFloat() / 86400
             val fhour = (dayFraction * 10).toInt()
             val fmin = ((dayFraction * 10 - fhour) * 100).toInt()
-            val fsec = ((dayFraction * 10 - (fhour + fmin.toFloat() / 100)) * 10000).toInt()
+            val fsec = ((dayFraction * 10 - (fhour + fmin.toFloat() / 100)) * 10000).roundToInt()
             return intArrayOf(fhour, fmin, fsec)
         }
 
@@ -432,7 +433,7 @@ class FrenchRevolutionaryCalendar(
             val dayFraction = fhour.toFloat() / 10 + fmin.toFloat() / 1000 + fsec.toFloat() / 100000
             val ghour = (dayFraction * 24).toInt()
             val gmin = ((dayFraction * 24 - ghour) * 60).toInt()
-            val gsec = ((dayFraction * 24 - (ghour + gmin.toFloat() / 60)) * 3600).toInt()
+            val gsec = ((dayFraction * 24 - (ghour + gmin.toFloat() / 60)) * 3600).roundToInt()
             return intArrayOf(ghour, gmin, gsec)
         }
 

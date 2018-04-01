@@ -72,6 +72,13 @@ public class FrenchRevolutionaryCalendarRommeTest extends FrenchRevolutionaryCal
     }
 
     @Test
+    public void testIssue18() throws Exception {
+        validateDates("2018-01-28", "226-05-09", "Nonidi", "Pluviôse", "Peuplier", "Poplar Tree", DailyObjectType.PLANT, 1);
+        validateDateAndTime("2018-01-28 22:59:00", "226-05-09 09:57:64", "Nonidi", "Pluviôse", "Peuplier", "Poplar Tree", DailyObjectType.PLANT, 1);
+        validateDateAndTime("2018-01-28 23:00:00", "226-05-09 09:58:33", "Nonidi", "Pluviôse", "Peuplier", "Poplar Tree", DailyObjectType.PLANT, 1);
+    }
+
+    @Test
     public void testFrenchDate10() throws Exception {
         validateDates("2016-01-01", "224-04-12", "Duodi", "Nivôse", "Argile", "Clay", DailyObjectType.MINERAL, 2);
         validateDates("2016-01-20", "224-05-01", "Primidi", "Pluviôse", "Lauréole", "Spurge-laurel", DailyObjectType.PLANT, 1);
