@@ -42,7 +42,7 @@ public class TestFrenchRevolutionaryCalendarCLI {
         testG2f("2011-07-08 11:30:30 CEST", "Décadi, 20-Messidor-219, 4:79:51, The tool:Pen", CalculationMethod.ROMME);
         testG2f("2011-07-08 11:30:30 PDT", "Décadi, 20-Messidor-219, 4:79:51, The tool:Pen", CalculationMethod.ROMME);
         testG2f("2014-11-29 22:59:59 CET", "Nonidi, 09-Frimaire-223, 9:58:32, The plant:Juniper", CalculationMethod.ROMME);
-        testG2f("2014-11-29 23:59:59 CET", "Nonidi, 09-Frimaire-223, 9:99:98, The plant:Juniper", CalculationMethod.ROMME);
+        testG2f("2014-11-29 23:59:59 CET", "Nonidi, 09-Frimaire-223, 9:99:99, The plant:Juniper", CalculationMethod.ROMME);
         testG2f("2014-11-30 00:00:01 CET", "Décadi, 10-Frimaire-223, 0:00:01, The tool:Pickaxe", CalculationMethod.ROMME);
     }
 
@@ -71,7 +71,7 @@ public class TestFrenchRevolutionaryCalendarCLI {
     @Test
     public void testG2fDateAndTimeFullTimestamp() {
         testG2f("2014-11-29 22:59:59 CET", "Octidi, 08-Frimaire-223, 9:58:32, The plant:Honey", CalculationMethod.EQUINOX);
-        testG2f("2014-11-29 23:59:59 CET", "Octidi, 08-Frimaire-223, 9:99:98, The plant:Honey", CalculationMethod.EQUINOX);
+        testG2f("2014-11-29 23:59:59 CET", "Octidi, 08-Frimaire-223, 9:99:99, The plant:Honey", CalculationMethod.EQUINOX);
         testG2f("2014-11-30 00:00:01 CET", "Nonidi, 09-Frimaire-223, 0:00:01, The plant:Juniper", CalculationMethod.EQUINOX);
     }
 
