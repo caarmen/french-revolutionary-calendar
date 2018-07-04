@@ -2,19 +2,19 @@
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.2.30</kotlin.version>
+    <kotlin.version>1.2.51</kotlin.version>
   </properties>
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>ca.rmen</groupId>
     <artifactId>parent</artifactId>
-    <version>1.8.1</version>
+    <version>1.8.2</version>
   </parent>
 
   <artifactId>lib-french-revolutionary-calendar</artifactId>
   <packaging>jar</packaging>
-  <version>1.8.1</version>
+  <version>1.8.2</version>
   <name>lib-french-revolutionary-calendar</name>
   <url>http://rmen.ca</url>
 

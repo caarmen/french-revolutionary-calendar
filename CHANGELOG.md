@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+1.8.2  *(2018-07-04)*
+--------------------
+* Update to Kotlin 1.2.51
+* Issue #21: Fix misspelling of german word Wiesenmonat for Prairial.
+
 1.8.1  *(2018-04-01)*
 --------------------
 * Fixed VonMadler calculation errors in time zones other than Paris.

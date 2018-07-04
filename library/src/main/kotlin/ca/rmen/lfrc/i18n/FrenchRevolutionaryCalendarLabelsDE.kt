@@ -32,7 +32,7 @@ internal class FrenchRevolutionaryCalendarLabelsDE : FrenchRevolutionaryCalendar
     companion object {
 
         @JvmField
-        val MONTHS = arrayOf("Weinmonat", "Nebelmonat", "Reifmonat", "Schneemonat", "Regenmonat", "Windmonat", "Keimmonat", "Blütenmonat", "Weisenmonat", "Erntemonat", "Hitzemonat", "Fruchtmonat", "Sansculottiden")
+        val MONTHS = arrayOf("Weinmonat", "Nebelmonat", "Reifmonat", "Schneemonat", "Regenmonat", "Windmonat", "Keimmonat", "Blütenmonat", "Wiesenmonat", "Erntemonat", "Hitzemonat", "Fruchtmonat", "Sansculottiden")
 
         @JvmField
         val DAY_OF_YEAR = arrayOf(
